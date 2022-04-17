@@ -1,0 +1,23 @@
+<?php
+return [
+    'admins' ,
+    'employees' ,
+    'settings' ,
+    'cities' ,
+    'areas' ,
+    'roles' ,
+    'clients' ,
+    'client_fin_accounts' ,
+    'orders' ,
+    'invoices' ,
+    'categories' ,
+    'products' ,
+    'product_units' ,
+    'product_conversion_units' ,
+    'order_items' ,
+    'receipts' ,
+    'return_invoices' ,
+    'locations' ,
+    'user_locations' ,
+    'tasks' ,
+];

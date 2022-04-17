@@ -125,7 +125,7 @@ class ClientController extends Controller
             $data['phone'] = $request->phone;
             if ($request->image) {
                 $path= 'public/uploads/users/'.$user->image;
-                if (file_exists($path)) {
+                if ($user->image and file_exists($path)) {
                     unlink($path);
                 }
                 Image::make($request->image)

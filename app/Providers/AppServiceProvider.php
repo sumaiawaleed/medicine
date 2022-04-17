@@ -20,5 +20,7 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('settings', $settings);
         });
+
+
     }
 }

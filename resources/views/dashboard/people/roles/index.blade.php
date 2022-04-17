@@ -24,11 +24,11 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ $data['title'] }}</h3>
                     <div class="card-tools">
-                        @if (auth()->user()->hasPermission('admins-create'))
-                            <button type="button" onclick="$('#create-model').modal('show')"
+                        @if (auth()->user()->hasPermission('roles-create'))
+                            <a href="{{ route(env('DASH_URL').'.roles.create') }}"
                                     class="btn btn-sm btn-success">
                                 @lang("site.add")
-                            </button>
+                            </a>
                         @endif
                     </div>
                 </div>
@@ -42,13 +42,6 @@
 
     </div>
 
-    @if (auth()->user()->hasPermission('admins-create'))
-        @include('dashboard.people.admins.create_model')
-    @endif
-    @if (auth()->user()->hasPermission('admins-update'))
-        @include('dashboard.people.admins.edit_model')
-    @endif
-
 @endsection
 @push('styles')
     <link rel="stylesheet"
@@ -57,10 +50,13 @@
           href="{{ asset("public/dashboard/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}">
     <link rel="stylesheet"
           href="{{ asset("public/dashboard/plugins/datatables-buttons/css/buttons.bootstrap4.min.css")}}">
+    <link rel="stylesheet" href="{{ asset('public/dashboard/select2/dist/css/select2.min.css')}}">
 @endpush
 
 @push('scripts')
-    @php $table_id = "table"; @endphp
+    @php $table_id = "table";
+    @endphp
     @include('dashboard.layouts.js._print')
-    @include('dashboard.layouts.js._table_form')
+    @include('dashboard.layouts.js.operations.delete')
+
 @endpush

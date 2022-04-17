@@ -24,7 +24,7 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ $data['title'] }}</h3>
                     <div class="card-tools">
-                        @if (auth()->user()->hasPermission('users-create'))
+                        @if (auth()->user()->hasPermission('employees-create'))
                             <button type="button" onclick="$('#create-model').modal('show')"
                                     class="btn btn-sm btn-success">
                                 @lang("site.add")
@@ -42,10 +42,10 @@
 
     </div>
 
-    @if (auth()->user()->hasPermission('users-create'))
+    @if (auth()->user()->hasPermission('employees-create'))
         @include('dashboard.people.employees.create_model')
     @endif
-    @if (auth()->user()->hasPermission('users-update'))
+    @if (auth()->user()->hasPermission('employees-update'))
         @include('dashboard.people.employees.edit_model')
     @endif
 

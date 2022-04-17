@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard\People;
 
-use App\DataTables\People\UserDataTable;
+use App\DataTables\People\EmployeeDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class EmployeeController extends Controller
         $this->middleware(['permission:employees-delete'])->only('destroy');
     }//end of constructor
 
-    public function index(UserDataTable $dataTable,Request $request){
+    public function index(EmployeeDataTable $dataTable,Request $request){
         $data['title'] = __('site.employees');
         return $dataTable->render('dashboard.people.employees.index',compact('data'));
     }
@@ -31,13 +31,12 @@ class EmployeeController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'password' => 'required',
-            'type' => 'required',
         ];
 
         if(!$data){
             $rules +=[
                 'image' => 'required',
+                'password' => 'required',
             ];
         }
 
@@ -109,7 +108,7 @@ class EmployeeController extends Controller
             ];
             if ($request->image) {
                 $path= 'public/uploads/users/'.$user->image;
-                if (file_exists($path)) {
+                if ($user->image and file_exists($path)) {
                     unlink($path);
                 }
                 Image::make($request->image)

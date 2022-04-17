@@ -40,6 +40,16 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::resource('clients', 'People\ClientController')->except(['destroy']);
             Route::get('clients/remove/{id}', 'People\ClientController@remove')->name('clients.remove');
 
+            Route::resource('admins', 'People\UserController')->except(['destroy']);
+            Route::get('admins/remove/{id}', 'People\UserController@remove')->name('admins.remove');
+
+            Route::resource('employees', 'People\EmployeeController')->except(['destroy']);
+            Route::get('employees/remove/{id}', 'People\EmployeeController@remove')->name('employees.remove');
+
+            Route::resource('roles', 'People\RoleController')->except(['destroy']);
+            Route::get('roles/remove/{id}', 'People\RoleController@remove')->name('roles.remove');
+
+
             Route::get('search/parents','AutocompleteController@parents')->name('search.parents');
             Route::get('search/categories','AutocompleteController@categories')->name('search.categories');
             Route::get('search/categories','AutocompleteController@categories')->name('search.categories');

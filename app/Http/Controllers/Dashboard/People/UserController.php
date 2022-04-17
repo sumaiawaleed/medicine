@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\People;
 
 use App\DataTables\People\UserDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\UserLocation;
 use Illuminate\Http\Request;
@@ -32,13 +33,12 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'password' => 'required',
-            'type' => 'required',
         ];
 
         if(!$data){
             $rules +=[
                 'image' => 'required',
+                'password' => 'required',
             ];
         }
 
@@ -79,7 +79,11 @@ class UserController extends Controller
                     ->save(public_path('uploads/users/' . $request->image->hashName()));
                 $data['image'] = $request->image->hashName();
             }
-            User::create($data);
+            $user = User::create($data);
+            $role = Role::find(1);
+            if ($role)
+                $user->syncRoles([$role->name]);
+
             return response()->json(array('success' => true), 200);
         }
     }
@@ -111,7 +115,7 @@ class UserController extends Controller
             ];
             if ($request->image) {
                 $path= 'public/uploads/users/'.$user->image;
-                if (file_exists($path)) {
+                if ($user->image and file_exists($path)) {
                     unlink($path);
                 }
                 Image::make($request->image)

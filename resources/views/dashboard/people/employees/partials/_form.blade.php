@@ -9,6 +9,16 @@
     </div>
 
     <div class="col-md-6">
+        <div class="form-group" id="phone">
+            <label for="phone_input">@lang('site.phone')</label>
+            <input id="phone_input" type="tel" name="phone" placeholder="@lang('site.phone')" class="form-control"
+                   value="">
+            <span id="phone_error" class="help-block"></span>
+        </div>
+    </div>
+
+
+    <div class="col-md-12">
         <div class="form-group" id="email">
             <label for="email_input">@lang('site.email')</label>
             <input id="email_input" type="email" name="email" placeholder="@lang('site.email')" class="form-control"

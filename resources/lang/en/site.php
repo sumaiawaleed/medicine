@@ -117,4 +117,17 @@ return [
     'name' => 'name',
     'client_type' => 'client type',
     'phone' => 'phone',
+
+    'employees' => 'employees',
+    'one_employees' => 'employee',
+
+    'admins' => 'admins',
+    'one_admins' => 'admin',
+
+    'people' => 'users',
+    'roles' => 'roles',
+    'one_roles' => 'role',
+    'select_all' => 'select all',
+    'display_name' => 'display name',
+    'description' => 'description',
 ];

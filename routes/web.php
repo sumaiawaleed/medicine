@@ -15,6 +15,8 @@ Route::get('/clear-cache', function () {
     return 'DONE'; //Return anything
 });
 
+Route::get('generate_key',[\App\Http\Controllers\HomeController::class,'keys']);
+
 
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']],
     function () {

@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form role="form" id="add_new_form" method="post" action="{{ route(env('DASH_URL').'.users.store') }}" enctype="multipart/form-data">
+                <form role="form" id="add_new_form" method="post" action="{{ route(env('DASH_URL').'.employees.store') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     {{ method_field('post') }}
                     <div class="box-body">

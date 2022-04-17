@@ -185,8 +185,8 @@ return [
 
         'client_type' => 'client type',
         'phone' => 'phone',
-
-
+        'display_name' => 'display name',
+        'description' => 'description',
 
     ],
 

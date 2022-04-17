@@ -43,7 +43,7 @@ class RoleController extends Controller
     public function index(RoleDataTable $dataTable,Request $request){
         $data['title'] = __('site.roles');
         $data['url'] = route(env('DASH_URL') . '.roles.index');
-        return $dataTable->render('dashboard.roles.index', compact('data','request'));
+        return $dataTable->render('dashboard.people.roles.index', compact('data','request'));
     }
 
     public function create()
@@ -82,7 +82,7 @@ class RoleController extends Controller
 
     public function update(Request $request,$id)
     {
-        $role = Role::find($id);
+        $role = Role::find($request->id);
         $validator = $this->validate_page($request,$role);
         if ($validator->fails()) {
             return response()->json(array(
@@ -101,10 +101,10 @@ class RoleController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function remove($id)
     {
-        $role = Role::find($id);
-        $role->update(['is_delete' => 1]);
-        return redirect()->back();
+        $role = Role::findOrFail($id);
+        $role->delete();
+        return response()->json(array('success' => true), 200);
     }
 }

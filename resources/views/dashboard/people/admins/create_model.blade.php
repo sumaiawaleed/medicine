@@ -2,13 +2,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">@lang('site.create') @lang('site.one_users')</h4>
+                <h4 class="modal-title">@lang('site.create') @lang('site.one_admins')</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form role="form" id="add_new_form" method="post" action="{{ route(env('DASH_URL').'.users.store') }}" enctype="multipart/form-data">
+                <form role="form" id="add_new_form" method="post" action="{{ route(env('DASH_URL').'.admins.store') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     {{ method_field('post') }}
                     <div class="box-body">

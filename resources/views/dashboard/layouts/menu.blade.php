@@ -12,87 +12,9 @@
 
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            @lang('site.places')
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @if (auth()->user()->hasPermission('cities-read'))
-                            <li class="nav-item">
-                                <a href="{{ route(env('DASH_URL').'.cities.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>@lang('site.cities')</p>
-                                </a>
-                            </li>
-                        @endif
-
-                        @if (auth()->user()->hasPermission('areas-read'))
-                            <li class="nav-item">
-                                <a href="{{ route(env('DASH_URL').'.areas.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>@lang('site.areas')</p>
-                                </a>
-                            </li>
-                        @endif
-
-                        @if (auth()->user()->hasPermission('locations-read'))
-                            <li class="nav-item">
-                                <a href="{{ route(env('DASH_URL').'.locations.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>@lang('site.locations')</p>
-                                </a>
-                            </li>
-                        @endif
-                    </ul>
-                </li>
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            @lang('site.products')
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @if (auth()->user()->hasPermission('categories-read'))
-                            <li class="nav-item">
-                                <a href="{{ route(env('DASH_URL').'.categories.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>@lang('site.categories')</p>
-                                </a>
-                            </li>
-                        @endif
-
-                        @if (auth()->user()->hasPermission('products-read'))
-                            <li class="nav-item">
-                                <a href="{{ route(env('DASH_URL').'.products.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>@lang('site.products')</p>
-                                </a>
-                            </li>
-                        @endif
-
-
-                    </ul>
-                </li>
-
-
-                @if (auth()->user()->hasPermission('users-read'))
-                    <li class="nav-item">
-                        <a href="{{ route(env('DASH_URL').'.users.index') }}" class="nav-link">
-                            <i class="nav-icon fas @lang('icons.users')"></i>
-                            <p>
-                                @lang('site.users')
-                            </p>
-                        </a>
-                    </li>
-                @endif
+                @include('dashboard.layouts.menus.main')
+                @include('dashboard.layouts.menus.people')
+                @include('dashboard.layouts.menus.products')
 
                 @if (auth()->user()->hasPermission('settings-read'))
                     <li class="nav-item">

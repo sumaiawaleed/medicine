@@ -7,7 +7,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class UserDataTable extends DataTable
+class EmployeeDataTable extends DataTable
 {
     public function dataTable($query)
     {
@@ -16,15 +16,14 @@ class UserDataTable extends DataTable
             ->addColumn('image_path', function ($data) {
                 return '<img src="'.$data->image_path.'" width="100px">';
             })
-            ->addColumn('action', 'dashboard.people.admins.partials._action')
+            ->addColumn('action', 'dashboard.people.employees.partials._action')
             ->rawColumns(['action','image_path']);
     }
 
     public function query(User $model)
     {
         $q = $model->newQuery();
-        $q->where('type',1);
-        $q->where('id','!=',1);
+        $q->where('type',2);
         $q->orderByDesc('id');
         return $q;
     }
