@@ -19,6 +19,15 @@ return[
         3 => 'unit 3',
     ],
 
+    'invoices' => [
+        1 => 'placed',
+        2 => 'confirmed',
+        3 => 'assign agent',
+        4 => 'complete',
+        5 => 'user canceled',
+        6 => 'store canceled',
+    ],
+
     'orders' => [
         1 => 'placed',
         2 => 'confirmed',

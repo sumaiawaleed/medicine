@@ -17,6 +17,7 @@ Route::post('login', 'AuthController@login')->name('login');
 
 
 Route::group(['prefix' => 'client',['middleware' => 'auth:api']], function () {
+    Route::get('permissions', 'Client\ProfileController@permissions')->name('permissions');
     Route::get('profile', 'Client\ProfileController@profile')->name('profile');
     Route::post('profile/edit', 'Client\ProfileController@edit')->name('profile.edit');
 

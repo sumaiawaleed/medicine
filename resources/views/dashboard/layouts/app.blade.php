@@ -11,6 +11,11 @@
     @else
         <link rel="stylesheet" href="{{ asset("public/dashboard/dist/css/adminlte.min.css")}}">
     @endif
+    <style>
+        table{
+            max-width: 100% !important;
+        }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 <div class="wrapper">

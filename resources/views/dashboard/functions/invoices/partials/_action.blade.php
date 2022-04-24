@@ -4,19 +4,15 @@
         <span class="sr-only"></span>
     </button>
     <div class="dropdown-menu" role="menu">
-
-        <a class="dropdown-item"
-           href="{{ route(env('DASH_URL').'.employees.show',$id) }}">@lang('site.profile')</a>
-
-        @if (auth()->user()->hasPermission('employees-update'))
-            <a onclick="return edit_row('{{ route(env('DASH_URL').'.employees.edit',$id) }}')" class="dropdown-item"
+        @if (auth()->user()->hasPermission('invoices-update'))
+            <a onclick="return edit_row('{{ route(env('DASH_URL').'.invoices.edit',$id) }}')" class="dropdown-item"
                href="#">@lang('site.edit')</a>
         @endif
 
-        @if (auth()->user()->hasPermission('employees-delete'))
-            <form onsubmit="return delete_process('{{ route(env('DASH_URL').'.employees.remove',$id) }}')" id="delete-{{ $id }}"
+        @if (auth()->user()->hasPermission('invoices-delete'))
+            <form onsubmit="return delete_process('{{ route(env('DASH_URL').'.invoices.remove',$id) }}')" id="delete-{{ $id }}"
                   class="delete-form"
-                  action="{{ route(env('DASH_URL').'.employees.remove',$id) }}"
+                  action="{{ route(env('DASH_URL').'.invoices.remove',$id) }}"
                   method="post" style="display: inline-block">
                 {{ csrf_field() }}
                 {{ method_field('delete') }}

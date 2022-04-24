@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard\People;
 
+use App\DataTables\Functions\InvoiceDataTable;
 use App\DataTables\People\EmployeeDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Invoice;
+use App\Models\Order;
+use App\Models\Role;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -48,11 +53,16 @@ class EmployeeController extends Controller
 
     public function show($id){
         $form_data = User::findOrFail($id);
-        if($form_data->type != 1){
+        if($form_data->type != 2){
             abort(404);
         }
-        $data['locations'] = UserLocation::where('user_id',$id)->get();
-        return view('dashboard.people.employees.index',compact('data','form_data'));
+        $data['page'] = 'edit';
+        $data['title'] = $form_data->name.' '.__('site.profile');
+        $data['user'] = $form_data;
+        $data['orders'] = Order::where('sales_person_id',$id)->count();
+        $data['tasks'] = Task::where('sales_person_id',$id)->count();
+        $data['invoices'] = Invoice::where('sales_person_id',$id)->count();
+        return view('dashboard.people.employees.show',compact('data','form_data'));
     }
 
     public function store(Request $request)
@@ -77,7 +87,11 @@ class EmployeeController extends Controller
                     ->save(public_path('uploads/users/' . $request->image->hashName()));
                 $data['image'] = $request->image->hashName();
             }
-            User::create($data);
+            $user = User::create($data);
+            $role = Role::find(3);
+            if ($role)
+            $user->syncRoles([$role->name]);
+
             return response()->json(array('success' => true), 200);
         }
     }
@@ -116,6 +130,9 @@ class EmployeeController extends Controller
                 $data['image'] = $request->image->hashName();
             }
             $user->update($data);
+            $role = Role::find(3);
+            if ($role)
+                $user->syncRoles([$role->name]);
             return response()->json(array('success' => true), 200);
         }
     }
@@ -125,5 +142,20 @@ class EmployeeController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return response()->json(array('success' => true));
+    }
+
+    public function invoices($id){
+        $data['page'] = 'invoices';
+        $form_data = User::findOrFail($id);
+        if($form_data->type != 2){
+            abort(404);
+        }
+        $data['title'] = $form_data->name.' '.__('site.invoices');
+        $data['user'] = $form_data;
+        $data['orders'] = Order::where('sales_person_id',$id)->count();
+        $data['tasks'] = Task::where('sales_person_id',$id)->count();
+        $data['invoices'] = Invoice::where('sales_person_id',$id)->count();
+        $dataTable = new InvoiceDataTable(0,$id,0);
+        return $dataTable->render('dashboard.people.employees.functions._invoices',compact('data'));
     }
 }

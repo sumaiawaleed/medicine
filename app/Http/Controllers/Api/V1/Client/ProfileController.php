@@ -15,4 +15,12 @@ class ProfileController extends Controller
         $apis->createApiResponse(false, 200, "  ", $data);
         return;
     }
+
+    public function permissions(Request $request){
+        $apis = new ApiHelper();
+        $data['permissions'] = $request->user('api')->allPermissions();
+
+        $apis->createApiResponse(false, 200, "  ", $data);
+        return;
+    }
 }

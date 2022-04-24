@@ -18,6 +18,18 @@ class Invoice extends Model
         'type',
     ];
 
+    public function getClient(){
+        $client  = Client::find($this->client_id);
+        if($client){
+            return User::find($client->user_id);
+        }
+        return  "";
+    }
+
+    public function employee(){
+        return $this->belongsTo(User::class,'sales_person_id','id');
+    }
+
     public function getCreatedAtAttribute() {
         if(!$this->attributes['created_at'])
             return "";

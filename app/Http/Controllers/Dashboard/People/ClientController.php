@@ -86,9 +86,9 @@ class ClientController extends Controller
                     'type_id' => $request->client_type,
                 ]);
             }
-//            $role = Role::find(1);
-//            if ($role)
-//                $user->syncRoles([$role->name]);
+            $role = Role::find(2);
+            if ($role)
+                $user->syncRoles([$role->name]);
             return response()->json(array('success' => true), 200);
         }
 
@@ -143,9 +143,9 @@ class ClientController extends Controller
                     ]);
                 }
             }
-//            $role = Role::find(1);
-//            if ($role)
-//                $user->syncRoles([$role->name]);
+            $role = Role::find(2);
+            if ($role)
+                $user->syncRoles([$role->name]);
             return response()->json(array('success' => true), 200);
         }
 
