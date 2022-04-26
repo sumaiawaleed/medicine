@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard\People;
 
 use App\DataTables\Functions\InvoiceDataTable;
+use App\DataTables\Functions\OrderDataTable;
 use App\DataTables\People\EmployeeDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
@@ -150,6 +151,7 @@ class EmployeeController extends Controller
         if($form_data->type != 2){
             abort(404);
         }
+        $data['emp'] = $form_data;
         $data['title'] = $form_data->name.' '.__('site.invoices');
         $data['user'] = $form_data;
         $data['orders'] = Order::where('sales_person_id',$id)->count();
@@ -157,5 +159,21 @@ class EmployeeController extends Controller
         $data['invoices'] = Invoice::where('sales_person_id',$id)->count();
         $dataTable = new InvoiceDataTable(0,$id,0);
         return $dataTable->render('dashboard.people.employees.functions._invoices',compact('data'));
+    }
+
+    public function orders($id){
+        $data['page'] = 'orders';
+        $form_data = User::findOrFail($id);
+        if($form_data->type != 2){
+            abort(404);
+        }
+        $data['emp'] = $form_data;
+        $data['title'] = $form_data->name.' '.__('site.invoices');
+        $data['user'] = $form_data;
+        $data['orders'] = Order::where('sales_person_id',$id)->count();
+        $data['tasks'] = Task::where('sales_person_id',$id)->count();
+        $data['invoices'] = Invoice::where('sales_person_id',$id)->count();
+        $dataTable = new OrderDataTable(0,$id);
+        return $dataTable->render('dashboard.people.employees.functions._orders',compact('data'));
     }
 }

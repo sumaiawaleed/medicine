@@ -67,8 +67,8 @@
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a href="{{ route(env('DASH_URL').'.employees.show',$data['user']->id) }}" class="nav-link {{ $data['page'] == 'edit' ? 'active' : '' }}">@lang('site.edit')</a>
                                     </li>
-                                    <li class="nav-item"><a href="{{ route(env('DASH_URL').'.employee.invoices',$data['user']->id) }}" class="nav-link {{ $data['page'] == 'orders' ? 'active' : '' }}" >@lang('site.orders')</a></li>
-                                    <li class="nav-item"><a class="nav-link {{ $data['page'] == 'invoices' ? 'active' : '' }}">@lang('site.invoices')</a></li>
+                                    <li class="nav-item"><a href="{{ route(env('DASH_URL').'.employee.orders',$data['user']->id) }}" class="nav-link {{ $data['page'] == 'orders' ? 'active' : '' }}" >@lang('site.orders')</a></li>
+                                    <li class="nav-item"><a href="{{ route(env('DASH_URL').'.employee.invoices',$data['user']->id) }}" class="nav-link {{ $data['page'] == 'invoices' ? 'active' : '' }}">@lang('site.invoices')</a></li>
                                     <li class="nav-item"><a class="nav-link {{ $data['page'] == 'tasks' ? 'active' : '' }}">@lang('site.tasks')</a></li>
                                 </ul>
                             </div><!-- /.card-header -->

@@ -27,6 +27,9 @@ Route::group(['prefix' => 'client',['middleware' => 'auth:api']], function () {
     Route::resource('contacts', 'Client\ContactController')->only(['index', 'store', 'destroy']);
     Route::post('contacts/update/{id}','Client\ContactController@update')->name('contacts.update');
 
+    Route::resource('tasks', 'Client\TaskController');
+
+
     Route::resource('orders', 'Client\OrderController');
     Route::post('order/rate','Client\OrderController@rate')->name('order.rate');
     Route::post('order/reschedule','Client\OrderController@reschedule_order')->name('order.reschedule');

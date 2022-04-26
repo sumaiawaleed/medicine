@@ -19,4 +19,14 @@ class Task extends Model
         'notes',
         'status'
     ];
+
+    public function location(){
+        return $this->belongsTo(Location::class,'location_id','id');
+    }
+
+    public function employee(){
+        return $this->belongsTo(User::class,'sales_person_id','id');
+    }
+
+
 }

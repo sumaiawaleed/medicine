@@ -28,6 +28,15 @@ return[
             5 => 'user canceled',
             6 => 'store canceled',
         ],
+
+        'tasks' => [
+            1 => 'placed',
+            2 => 'confirmed',
+            3 => 'assign agent',
+            4 => 'complete',
+            5 => 'user canceled',
+            6 => 'store canceled',
+        ],
         'types' => [
             1 => 'type 1',
             2 => 'type 2',

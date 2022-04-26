@@ -15,6 +15,10 @@ class Order extends Model
         'status'
     ];
 
+    public function getStatusLable(){
+        return '<lable class="bg-'.__('vars.order_colors.'.$this->status).'">'.__('vars.orders.'.$this->status).'</lable>';
+    }
+
     public function client(){
         return $this->belongsTo(Client::class,'client_id','id');
     }

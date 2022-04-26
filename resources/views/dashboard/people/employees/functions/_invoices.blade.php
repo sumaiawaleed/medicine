@@ -34,4 +34,10 @@
     @endphp
     @include('dashboard.layouts.js._print')
     @include('dashboard.layouts.js._table_form')
+    <script src="{{ asset('public/dashboard/select2/dist/js/select2.full.min.js')}}"></script>
+    <script>
+        @include('dashboard.layouts.js.auto_complete.clients')
+        @include('dashboard.layouts.js.auto_complete.employees')
+        @include('dashboard.layouts.js.auto_complete.orders')
+    </script>
 @endpush

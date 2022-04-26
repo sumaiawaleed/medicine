@@ -63,6 +63,6 @@ class User extends Authenticatable
     }//end of image path attribute
 
     public function client(){
-        return $this->belongsTo(Client::class,'user_id','id');
+        return $this->hasOne(Client::class,'user_id','id');
     }
 }

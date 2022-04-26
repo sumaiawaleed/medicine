@@ -188,6 +188,13 @@ return [
         'display_name' => 'display name',
         'description' => 'description',
 
+        'client_id' => 'client',
+        'sales_person_id' => 'employee',
+        'order_id' =>  'order',
+        'total' => 'total',
+        'tax' => 'tax',
+        'type' => 'type',
+
     ],
 
 ];

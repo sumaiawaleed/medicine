@@ -46,6 +46,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::resource('employees', 'People\EmployeeController')->except(['destroy']);
             Route::get('employees/remove/{id}', 'People\EmployeeController@remove')->name('employees.remove');
             Route::get('employee/invoices/{id}', 'People\EmployeeController@invoices')->name('employee.invoices');
+            Route::get('employee/orders/{id}', 'People\EmployeeController@orders')->name('employee.orders');
 
             Route::resource('roles', 'People\RoleController')->except(['destroy']);
             Route::get('roles/remove/{id}', 'People\RoleController@remove')->name('roles.remove');
@@ -58,5 +59,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::get('search/categories','AutocompleteController@categories')->name('search.categories');
             Route::get('search/cities','AutocompleteController@cities')->name('search.cities');
             Route::get('search/areas','AutocompleteController@areas')->name('search.areas');
+            Route::get('search/clients','AutocompleteController@clients')->name('search.clients');
+            Route::get('search/employees','AutocompleteController@employees')->name('search.employees');
+            Route::get('search/orders','AutocompleteController@orders')->name('search.orders');
         });
     });

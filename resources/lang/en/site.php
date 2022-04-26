@@ -130,4 +130,16 @@ return [
     'select_all' => 'select all',
     'display_name' => 'display name',
     'description' => 'description',
+
+    'invoices' => 'invoices',
+    'one_invoices' => 'invoice',
+    'client_id' => 'client',
+    'client_name' => 'client',
+    'emp_name' => 'employee',
+    'sales_person_id' => 'employee',
+    'order_id' =>  'order',
+    'total' => 'total',
+    'tax' => 'tax',
+    'type' => 'type',
+    'invoice_type' => 'type',
 ];
