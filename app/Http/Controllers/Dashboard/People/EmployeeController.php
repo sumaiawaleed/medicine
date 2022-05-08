@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Dashboard\People;
 
 use App\DataTables\Functions\InvoiceDataTable;
 use App\DataTables\Functions\OrderDataTable;
+use App\DataTables\Functions\TaskDataTable;
 use App\DataTables\People\EmployeeDataTable;
+use App\DataTables\People\UserLocationDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Order;
@@ -175,5 +177,37 @@ class EmployeeController extends Controller
         $data['invoices'] = Invoice::where('sales_person_id',$id)->count();
         $dataTable = new OrderDataTable(0,$id);
         return $dataTable->render('dashboard.people.employees.functions._orders',compact('data'));
+    }
+
+    public function tasks($id){
+        $data['page'] = 'tasks';
+        $form_data = User::findOrFail($id);
+        if($form_data->type != 2){
+            abort(404);
+        }
+        $data['emp'] = $form_data;
+        $data['title'] = $form_data->name.' '.__('site.tasks');
+        $data['user'] = $form_data;
+        $data['orders'] = Order::where('sales_person_id',$id)->count();
+        $data['tasks'] = Task::where('sales_person_id',$id)->count();
+        $data['invoices'] = Invoice::where('sales_person_id',$id)->count();
+        $dataTable = new TaskDataTable(0,$id);
+        return $dataTable->render('dashboard.people.employees.functions._tasks',compact('data'));
+    }
+
+    public function locations($id){
+        $data['page'] = 'locations';
+        $form_data = User::findOrFail($id);
+        if($form_data->type != 2){
+            abort(404);
+        }
+        $data['emp'] = $form_data;
+        $data['title'] = $form_data->name.' '.__('site.locations');
+        $data['user'] = $form_data;
+        $data['orders'] = Order::where('sales_person_id',$id)->count();
+        $data['tasks'] = Task::where('sales_person_id',$id)->count();
+        $data['invoices'] = Invoice::where('sales_person_id',$id)->count();
+        $dataTable = new UserLocationDataTable($id);
+        return $dataTable->render('dashboard.people.employees.functions._locations',compact('data'));
     }
 }

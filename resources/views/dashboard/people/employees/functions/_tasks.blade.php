@@ -1,22 +1,14 @@
 @extends('dashboard.people.employees.app')
 @section('emp_content')
 
-    @if (auth()->user()->hasPermission('invoices-create'))
-{{--        <button type="button" onclick="$('#create-model').modal('show')"--}}
-{{--                class="btn btn-sm btn-success">--}}
-{{--            @lang("site.add")--}}
-{{--        </button>--}}
+    @if (auth()->user()->hasPermission('tasks-create'))
+        <a href="{{ route(env('DASH_URL').'.tasks.create',['emp_id' => $data['user']->id]) }}"
+                class="btn btn-sm btn-success">
+            @lang("site.add")
+        </a>
     @endif
 
     {!! $dataTable->table() !!}
-
-
-    @if (auth()->user()->hasPermission('invoices-create'))
-        @include('dashboard.functions.invoices.create_model')
-    @endif
-    @if (auth()->user()->hasPermission('invoices-update'))
-        @include('dashboard.functions.invoices.edit_model')
-    @endif
 
 @endsection
 @push('styles')

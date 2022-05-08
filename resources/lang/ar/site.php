@@ -12,7 +12,7 @@ return [
     'dash_users' => 'الادمن',
     'one_dash_users' => 'ادمن',
     'logout' => 'تسجيل الخروج',
-    'copy' => '<strong>جميع الحقوق محفوظة &copy; '.date('Y').' <a href="'.route('home').'">تالة</a>.</strong> ',
+    'copy' => '<strong>جميع الحقوق محفوظة &copy; '.date('Y').' <a href="'.route('home').'">سيدرا</a>.</strong> ',
 
     'password_confirmation' => 'تأكيد كلمة المرور',
     'privileges' => 'الصلاحيات',

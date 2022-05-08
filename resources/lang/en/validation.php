@@ -195,6 +195,13 @@ return [
         'tax' => 'tax',
         'type' => 'type',
 
+        'location' => 'location',
+        'lat' => 'latitude',
+        'log' => 'longitude',
+        'from_date' => 'from date',
+        'to_date' => 'to date',
+        'status' => 'status'
+
     ],
 
 ];

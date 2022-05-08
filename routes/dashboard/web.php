@@ -47,12 +47,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::get('employees/remove/{id}', 'People\EmployeeController@remove')->name('employees.remove');
             Route::get('employee/invoices/{id}', 'People\EmployeeController@invoices')->name('employee.invoices');
             Route::get('employee/orders/{id}', 'People\EmployeeController@orders')->name('employee.orders');
+            Route::get('employee/tasks/{id}', 'People\EmployeeController@tasks')->name('employee.tasks');
+            Route::get('employee/locations/{id}', 'People\EmployeeController@locations')->name('employee.locations');
 
             Route::resource('roles', 'People\RoleController')->except(['destroy']);
             Route::get('roles/remove/{id}', 'People\RoleController@remove')->name('roles.remove');
 
             Route::resource('invoices', 'Functions\InvoiceController')->except(['destroy']);
             Route::get('invoices/remove/{id}', 'Functions\InvoiceController@remove')->name('invoices.remove');
+
+            Route::resource('tasks', 'Functions\TaskController')->except(['destroy']);
+            Route::get('tasks/remove/{id}', 'Functions\TaskController@remove')->name('tasks.remove');
 
             Route::get('search/parents','AutocompleteController@parents')->name('search.parents');
             Route::get('search/categories','AutocompleteController@categories')->name('search.categories');

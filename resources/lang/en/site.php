@@ -12,7 +12,7 @@ return [
     'dash_users' => 'Admins',
     'one_dash_users' => 'Admin',
     'logout' => 'logout',
-    'copy' => '<strong>Copyright &copy; '.date('Y').' <a href="'.route('home').'">Tala</a>.</strong> All rights reserved.',
+    'copy' => '<strong>Copyright &copy; '.date('Y').' <a href="'.route('home').'">Cedra</a>.</strong> All rights reserved.',
 
     'password_confirmation' => 'password confirmation',
     'privileges' => 'privileges',
@@ -142,4 +142,19 @@ return [
     'tax' => 'tax',
     'type' => 'type',
     'invoice_type' => 'type',
+
+    'tasks' => 'tasks',
+    'one_tasks' => 'task',
+    'name' => '',
+    'client_id' => '',
+    'sales_person_id' => '',
+    'city_id' => '',
+    'area_id' => '',
+    'location' => 'location',
+    'lat' => 'latitude',
+    'log' => 'longitude',
+    'from_date' => 'from date',
+    'to_date' => 'to date',
+    'notes' => '',
+    'status' => 'status'
 ];

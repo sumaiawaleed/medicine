@@ -69,7 +69,8 @@
                                     </li>
                                     <li class="nav-item"><a href="{{ route(env('DASH_URL').'.employee.orders',$data['user']->id) }}" class="nav-link {{ $data['page'] == 'orders' ? 'active' : '' }}" >@lang('site.orders')</a></li>
                                     <li class="nav-item"><a href="{{ route(env('DASH_URL').'.employee.invoices',$data['user']->id) }}" class="nav-link {{ $data['page'] == 'invoices' ? 'active' : '' }}">@lang('site.invoices')</a></li>
-                                    <li class="nav-item"><a class="nav-link {{ $data['page'] == 'tasks' ? 'active' : '' }}">@lang('site.tasks')</a></li>
+                                    <li class="nav-item"><a href="{{ route(env('DASH_URL').'.employee.tasks',$data['user']->id) }}" class="nav-link {{ $data['page'] == 'tasks' ? 'active' : '' }}">@lang('site.tasks')</a></li>
+                                    <li class="nav-item"><a href="{{ route(env('DASH_URL').'.employee.locations',$data['user']->id) }}" class="nav-link {{ $data['page'] == 'locations' ? 'active' : '' }}">@lang('site.locations')</a></li>
                                 </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">

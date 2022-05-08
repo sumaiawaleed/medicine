@@ -13,20 +13,37 @@ class Task extends Model
         'name',
         'client_id',
         'sales_person_id',
-        'location_id',
+        'city_id',
+        'area_id',
+        'location',
+        'lat',
+        'log',
         'from_date',
         'to_date',
         'notes',
         'status'
     ];
 
+    public function getStatusLable(){
+        return '<lable class="bg-'.__('vars.tasks_colors.'.$this->status).'">'.__('vars.tasks.'.$this->status).'</lable>';
+    }
+
+
     public function location(){
         return $this->belongsTo(Location::class,'location_id','id');
+    }
+
+    public function getClient(){
+        $client = Client::find($this->client_id);
+        $user = $client ? User::find($client->user_id) : '';
+        return $user;
+    }
+
+    public function client(){
+        return $this->belongsTo(Client::class,'client_id','id');
     }
 
     public function employee(){
         return $this->belongsTo(User::class,'sales_person_id','id');
     }
-
-
 }
