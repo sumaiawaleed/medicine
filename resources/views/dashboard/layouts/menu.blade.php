@@ -17,14 +17,14 @@
                 @include('dashboard.layouts.menus.products')
 
                 @if (auth()->user()->hasPermission('settings-read'))
-                    <li class="nav-item">
-                        <a href="{{ route(env('DASH_URL').'.settings') }}" class="nav-link">
-                            <i class="nav-icon fas @lang('icons.settings')"></i>
-                            <p>
-                                @lang('site.settings')
-                            </p>
-                        </a>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="{{ route(env('DASH_URL').'.settings') }}" class="nav-link">--}}
+{{--                            <i class="nav-icon fas @lang('icons.settings')"></i>--}}
+{{--                            <p>--}}
+{{--                                @lang('site.settings')--}}
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                 @endif
             </ul>
         </nav>
