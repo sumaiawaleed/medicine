@@ -89,7 +89,7 @@ return [
     'city_id' => 'city',
 
     'locations' => 'locations',
-    'one_locations' => 'area',
+    'one_locations' => 'location',
     'area_id' => 'area',
     'address' => 'address',
 
@@ -145,16 +145,11 @@ return [
 
     'tasks' => 'tasks',
     'one_tasks' => 'task',
-    'name' => '',
-    'client_id' => '',
-    'sales_person_id' => '',
-    'city_id' => '',
-    'area_id' => '',
     'location' => 'location',
     'lat' => 'latitude',
     'log' => 'longitude',
     'from_date' => 'from date',
     'to_date' => 'to date',
-    'notes' => '',
-    'status' => 'status'
+    'status' => 'status',
+    'is_current' => 'current',
 ];

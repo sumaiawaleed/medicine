@@ -200,7 +200,8 @@ return [
         'log' => 'longitude',
         'from_date' => 'from date',
         'to_date' => 'to date',
-        'status' => 'status'
+        'status' => 'status',
+        'is_current' => 'current',
 
     ],
 

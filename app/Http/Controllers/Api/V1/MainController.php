@@ -86,4 +86,20 @@ class MainController extends Controller
         $apis->createApiResponse(false, 200, "  ", $data);
         return;
     }
+
+    public function all_products(Request $request){
+        $apis = new ApiHelper();
+        $lang = $request->header('lang');
+        $data['products'] = array();
+            $data['products'] = Product::when($request->category_id, function ($q) use ($request) {
+                return $q->where('category_id', '=', $request->category_id);
+            })->orderByDesc('id')->get();
+
+        foreach ($data['products'] as $index=>$product){
+            $product->name = $product->getTranslateName($lang);
+            $product->category_name = $product->get_category_name($lang);
+        }
+        $apis->createApiResponse(false, 200, "  ", $data);
+        return;
+    }
 }

@@ -65,4 +65,8 @@ class User extends Authenticatable
     public function client(){
         return $this->hasOne(Client::class,'user_id','id');
     }
+
+    public function locations(){
+        return $this->hasMany(UserLocation::class);
+    }
 }

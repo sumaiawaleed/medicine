@@ -6,6 +6,8 @@ use App\DataTables\Main\LocationDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\City;
+use App\Models\User;
+use App\Models\UserLocation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -50,6 +52,8 @@ class LocationController extends Controller
     }
 
     public function create(Request $request){
+        $data['user'] = User::findOrFail($request->user_id);
+        $data['user_id'] = $request->user_id;
         $data['title'] = __('site.create').' '.__('site.one_locations');
         return view('dashboard.main.locations.create',compact('data'));
     }
@@ -71,13 +75,19 @@ class LocationController extends Controller
                 $name_array[$locale] = $request->$n;
             }
             $request_data = [
-                'address' => json_encode($name_array,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT),
+                'location' => json_encode($name_array,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT),
                 'city_id' => ($request->city_id) ? $request->city_id : 0,
                 'area_id' => ($request->area_id) ? $request->area_id : 0,
                 'lat' => $request->lat,
                 'log' => $request->log,
+                'user_id' => $request->user_id,
+                'is_current' => ($request->is_current) ? 1 : 0,
             ];
-            Location::create($request_data);
+
+            if($request->is_current == 1){
+                UserLocation::where('user_id',$request->user_id)->update(['is_current' => 0]);
+            }
+            UserLocation::create($request_data);
             return response()->json(array('success' => true), 200);
         }
     }
@@ -85,7 +95,8 @@ class LocationController extends Controller
     public function edit($id)
     {
         $data['title'] = __('site.edit').' '.__('site.one_locations');
-        $form_data = Location::findOrFail($id);
+        $form_data = UserLocation::findOrFail($id);
+        $data['user']  = User::find($form_data->user_id);
         $data['city']  = City::find($form_data->city_id);
         $data['area']  = Area::find($form_data->area_id);
         return view('dashboard.main.locations.edit',compact('form_data','data'));
@@ -93,7 +104,7 @@ class LocationController extends Controller
 
     public function update(Request $request,$id)
     {
-        $location = Location::findOrFail($request->id);
+        $location = UserLocation::findOrFail($request->id);
         $validator = $this->validate_page($request,$location);
         if ($validator->fails()) {
             return response()->json(array(
@@ -109,12 +120,15 @@ class LocationController extends Controller
                 $name_array[$locale] = $request->$n;
             }
             $request_data = [
-                'address' => json_encode($name_array,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT),
+                'location' => json_encode($name_array,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT),
                 'city_id' => ($request->city_id) ? $request->city_id : 0,
                 'area_id' => ($request->area_id) ? $request->area_id : 0,
                 'lat' => $request->lat,
                 'log' => $request->log,
             ];
+            if($request->is_current == 1){
+                UserLocation::where('user_id',$location->user_id)->update(['is_current' => 0]);
+            }
             $location->update($request_data);
             return response()->json(array('success' => true), 200);
         }
@@ -122,7 +136,7 @@ class LocationController extends Controller
 
     public function remove($id)
     {
-        $location = Location::findOrFail($id);
+        $location = UserLocation::findOrFail($id);
         $location->delete();
         return response()->json(array('success' => true));
     }

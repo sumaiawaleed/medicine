@@ -12,9 +12,11 @@
                             <li class="breadcrumb-item">
                                 <a href="{{ route(env('DASH_URL').'.index') }}">@lang('site.home')</a>
                             </li>
-                            <li class="breadcrumb-item">
-                                <a href="{{ route(env('DASH_URL').'.locations.index') }}">@lang('site.locations')</a>
-                            </li>
+                            @if($data['user']->type == 2)
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route(env('DASH_URL').'.employee.locations',$data['user']->id) }}">{{ $data['user']->name }} @lang('site.locations')</a>
+                                </li>
+                            @endif
                             <li class="breadcrumb-item active">{{ $data['title'] }}</li>
                         </ol>
                     </div>
@@ -29,11 +31,12 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form role="form" id="add_new_form" method="post"
+                    <form role="form" class="form" method="post"
                           action="{{ route(env('DASH_URL').'.locations.store') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('post') }}
                         <div class="box-body">
+                            <input type="hidden" value="{{ $data['user_id'] }}" name="user_id">
                             @include('dashboard.main.locations.partials._form')
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-primary">@lang('site.add')</button>

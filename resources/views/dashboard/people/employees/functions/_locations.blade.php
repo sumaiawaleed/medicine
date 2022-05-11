@@ -2,7 +2,7 @@
 @section('emp_content')
 
     @if (auth()->user()->hasPermission('locations-create'))
-        <a href="{{ route(env('DASH_URL').'.locations.create',['emp_id' => $data['user']->id]) }}"
+        <a href="{{ route(env('DASH_URL').'.locations.create',['user_id' => $data['user']->id]) }}"
                 class="btn btn-sm btn-success">
             @lang("site.add")
         </a>

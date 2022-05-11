@@ -10,7 +10,10 @@ Route::get('main/cities', 'MainController@cities')->name('main.cities');
 Route::get('main/areas', 'MainController@areas')->name('main.areas');
 Route::get('main/locations', 'MainController@locations')->name('main.locations');
 Route::get('main/products', 'MainController@products')->name('main.products');
+Route::get('main/all_products', 'MainController@all_products')->name('main.all_products');
 Route::get('main/categories', 'MainController@categories')->name('main.categories');
+
+
 
 Route::post('login', 'AuthController@login')->name('login');
 
@@ -36,13 +39,12 @@ Route::group(['prefix' => 'client',['middleware' => 'auth:api']], function () {
     Route::post('order/cancel','Client\OrderController@cancel')->name('order.cancel');
 });
 
-Route::group(['prefix' => 'engineer', 'middleware' => ['eng_auth']], function () {
+Route::group(['prefix' => 'emp',['middleware' => 'auth:api']], function () {
     Route::get('profile', 'Engineer\EngController@profile')->name('profile');
     Route::post('profile/edit', 'Engineer\EngController@edit')->name('profile.edit');
 
-    Route::get('store', 'Engineer\StoreController@store')->name('store');
-    Route::post('store/edit', 'Engineer\StoreController@edit')->name('store.edit');
-
+    Route::resource('clients', 'Emp\ClientController')->only(['index','store','show']);
+    Route::post('clients/edit/{id}','Emp\ClientController@update')->name('clients.edit');
 
     Route::resource('orders', 'Engineer\OrderController')->only(['index','show']);
     Route::post('order/reschedule','Engineer\OrderController@reschedule_order')->name('order.reschedule');

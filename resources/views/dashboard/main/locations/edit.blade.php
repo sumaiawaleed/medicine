@@ -12,9 +12,11 @@
                             <li class="breadcrumb-item">
                                 <a href="{{ route(env('DASH_URL').'.index') }}">@lang('site.home')</a>
                             </li>
-                            <li class="breadcrumb-item">
-                                <a href="{{ route(env('DASH_URL').'.locations.index') }}">@lang('site.locations')</a>
-                            </li>
+                            @if($data['user']->type == 2)
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route(env('DASH_URL').'.employee.locations',$data['user']->id) }}">{{ $data['user']->name }} @lang('site.locations')</a>
+                                </li>
+                            @endif
                             <li class="breadcrumb-item active">{{ $data['title'] }}</li>
                         </ol>
                     </div>
@@ -29,7 +31,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form role="form" id="add_new_form" method="post"
+                    <form role="form" class="form" method="post"
                           action="{{ route(env('DASH_URL').'.locations.update',0) }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('put') }}

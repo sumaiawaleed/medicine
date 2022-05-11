@@ -21,29 +21,31 @@ class UserLocationDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'userlocation.action');
+            ->addColumn('is_current', function ($data) {
+                return $data->is_current == 1 ? __('site.yes') : __('site.no');
+            })->addColumn('city_name', function ($data) {
+                return $data->city ? $data->city->getTranslateName(app()->getLocale()) : '';
+            })->addColumn('area_name', function ($data) {
+                return $data->area ? $data->area->getTranslateName(app()->getLocale()) : '';
+            })->addColumn('location', function ($data) {
+                return  $data->getTranslateName(app()->getLocale());
+            })
+            ->addColumn('action', 'dashboard.main.locations.partials._action');
     }
-
-    /**
-     * Get query source of dataTable.
-     *
-     * @param \App\Models\UserLocation $model
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     public function query(UserLocation $model)
     {
-        return $model->newQuery();
+        $q = $model->newQuery();
+        $q->with(['area', 'city']);
+        if ($this->user_id != 0) {
+            $q->where('user_id', $this->user_id);
+        }
+        return $q;
     }
 
-    /**
-     * Optional method if you want to use html builder.
-     *
-     * @return \Yajra\DataTables\Html\Builder
-     */
     public function html()
     {
         return $this->builder()
-                    ->setTableId('userlocation-table')
+                    ->setTableId('table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
@@ -52,36 +54,27 @@ class UserLocationDataTable extends DataTable
                         Button::make('create'),
                         Button::make('export'),
                         Button::make('print'),
-                        Button::make('reset'),
                         Button::make('reload')
                     );
     }
 
-    /**
-     * Get columns.
-     *
-     * @return array
-     */
     protected function getColumns()
     {
         return [
+            Column::make('id')->title('#')->data('id')->name('id'),
+            Column::make('city_name')->title(__('site.city_name'))->data('city_name')->name('city_name'),
+            Column::make('area_name')->title(__('site.area_name'))->data('area_name')->name('area_name'),
+            Column::make('location')->title(__('site.location'))->data('location')->name('location'),
+            Column::make('is_current')->title(__('site.is_current'))->data('is_current')->name('is_current'),
             Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->title(__('site.action'))
+                ->addClass('text-center')
         ];
     }
 
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
     protected function filename()
     {
         return 'UserLocation_' . date('YmdHis');
