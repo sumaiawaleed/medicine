@@ -40,7 +40,8 @@ class OrderDataTable extends DataTable
                     return '';
                 }
             })
-            ->addColumn('action', 'dashboard.functions.orders.partials._action');
+            ->addColumn('action', 'dashboard.functions.orders.partials._action')
+            ->rawColumns(['action','client_name','emp_name','status_name']);
     }
 
     public function query(Order $model)

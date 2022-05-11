@@ -4,15 +4,15 @@
         <span class="sr-only"></span>
     </button>
     <div class="dropdown-menu" role="menu">
-        @if (auth()->user()->hasPermission('invoices-update'))
-            <a onclick="return edit_row('{{ route(env('DASH_URL').'.invoices.edit',$id) }}')" class="dropdown-item"
+        @if (auth()->user()->hasPermission('orders-update'))
+            <a onclick="return edit_row('{{ route(env('DASH_URL').'.orders.edit',$id) }}')" class="dropdown-item"
                href="#">@lang('site.edit')</a>
         @endif
 
-        @if (auth()->user()->hasPermission('invoices-delete'))
-            <form onsubmit="return delete_process('{{ route(env('DASH_URL').'.invoices.remove',$id) }}')" id="delete-{{ $id }}"
+        @if (auth()->user()->hasPermission('orders-delete'))
+            <form onsubmit="return delete_process('{{ route(env('DASH_URL').'.orders.remove',$id) }}')" id="delete-{{ $id }}"
                   class="delete-form"
-                  action="{{ route(env('DASH_URL').'.invoices.remove',$id) }}"
+                  action="{{ route(env('DASH_URL').'.orders.remove',$id) }}"
                   method="post" style="display: inline-block">
                 {{ csrf_field() }}
                 {{ method_field('delete') }}

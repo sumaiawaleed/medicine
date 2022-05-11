@@ -16,7 +16,15 @@ class Order extends Model
     ];
 
     public function getStatusLable(){
-        return '<lable class="bg-'.__('vars.order_colors.'.$this->status).'">'.__('vars.orders.'.$this->status).'</lable>';
+        return '<lable class="badge bg-'.__('vars.order_colors.'.$this->status).'">'.__('vars.orders.'.$this->status).'</lable>';
+    }
+
+    public function getClient(){
+        $client  = Client::find($this->client_id);
+        if($client){
+            return User::find($client->user_id);
+        }
+        return  "";
     }
 
     public function client(){

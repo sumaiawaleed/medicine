@@ -39,6 +39,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
             Route::resource('clients', 'People\ClientController')->except(['destroy']);
             Route::get('clients/remove/{id}', 'People\ClientController@remove')->name('clients.remove');
+            Route::get('clients/remove/{id}', 'People\ClientController@remove')->name('clients.remove');
+            Route::get('clients/invoices/{id}', 'People\ClientFunController@invoices')->name('clients.invoices');
+            Route::get('clients/orders/{id}', 'People\ClientFunController@orders')->name('clients.orders');
+            Route::get('clients/tasks/{id}', 'People\ClientFunController@tasks')->name('clients.tasks');
+            Route::get('clients/locations/{id}', 'People\ClientFunController@locations')->name('clients.locations');
+            Route::get('clients/financial/{id}', 'People\ClientFunController@financial')->name('clients.financial');
 
             Route::resource('admins', 'People\UserController')->except(['destroy']);
             Route::get('admins/remove/{id}', 'People\UserController@remove')->name('admins.remove');
@@ -55,6 +61,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
             Route::resource('invoices', 'Functions\InvoiceController')->except(['destroy']);
             Route::get('invoices/remove/{id}', 'Functions\InvoiceController@remove')->name('invoices.remove');
+
+            Route::resource('orders', 'Functions\OrderController')->except(['destroy']);
+            Route::get('orders/remove/{id}', 'Functions\OrderController@remove')->name('orders.remove');
+
 
             Route::resource('tasks', 'Functions\TaskController')->except(['destroy']);
             Route::get('tasks/remove/{id}', 'Functions\TaskController@remove')->name('tasks.remove');

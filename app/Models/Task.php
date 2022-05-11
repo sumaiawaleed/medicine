@@ -25,7 +25,7 @@ class Task extends Model
     ];
 
     public function getStatusLable(){
-        return '<lable class="bg-'.__('vars.tasks_colors.'.$this->status).'">'.__('vars.tasks.'.$this->status).'</lable>';
+        return '<lable class="badge bg-'.__('vars.tasks_colors.'.$this->status).'">'.__('vars.tasks.'.$this->status).'</lable>';
     }
 
 
@@ -46,4 +46,21 @@ class Task extends Model
     public function employee(){
         return $this->belongsTo(User::class,'sales_person_id','id');
     }
+
+    public function getFromDateAttribute() {
+        if(!$this->attributes['from_date'])
+            return "";
+
+        $date = $this->attributes['from_date'];
+        return date('Y-m-d',strtotime($date));
+    }
+
+    public function getToDateAttribute() {
+        if(!$this->attributes['to_date'])
+            return "";
+
+        $date = $this->attributes['to_date'];
+        return date('Y-m-d',strtotime($date));
+    }
+
 }

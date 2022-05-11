@@ -7,7 +7,10 @@ use App\DataTables\UserDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\ClientType;
+use App\Models\Invoice;
+use App\Models\Order;
 use App\Models\Role;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -157,4 +160,20 @@ class ClientController extends Controller
         $user->delete();
         return response()->json(array('success' => true), 200);
     }
+
+    public function show($id){
+        $form_data = User::findOrFail($id);
+        if($form_data->type != 3){
+            abort(404);
+        }
+        $data['page'] = 'edit';
+        $data['types'] = ClientType::all();
+        $data['title'] = $form_data->name.' '.__('site.profile');
+        $data['user'] = $form_data;
+        $data['orders'] = Order::where('client_id',$id)->count();
+        $data['tasks'] = Task::where('client_id',$id)->count();
+        $data['invoices'] = Invoice::where('client_id',$id)->count();
+        return view('dashboard.people.clients.show',compact('data','form_data'));
+    }
+
 }
