@@ -23,7 +23,7 @@ class InvoiceController extends Controller
     public function index(Request $request){
         $dataTable = new InvoiceDataTable(0,0,0);
         $data['title'] = __('site.invoices');
-        return $dataTable->render('dashboard.main.invoices.index',compact('data'));
+        return $dataTable->render('dashboard.functions.invoices.index',compact('data'));
     }
 
     private function validate_page($request , $data = "")

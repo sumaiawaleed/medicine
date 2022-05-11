@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard\Functions;
 use App\DataTables\Functions\OrderDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,7 +23,7 @@ class OrderController extends Controller
     public function index(Request $request){
         $dataTable = new OrderDataTable(0,0);
         $data['title'] = __('site.orders');
-        return $dataTable->render('dashboard.main.orders.index',compact('data'));
+        return $dataTable->render('dashboard.functions.orders.index',compact('data'));
     }
 
     private function validate_page($request , $data = "")
@@ -71,6 +72,7 @@ class OrderController extends Controller
     public function remove($id)
     {
         $order = Order::findOrFail($id);
+        OrderItem::where('order_id',$id)->delete();
         $order->delete();
         return response()->json(array('success' => true));
     }

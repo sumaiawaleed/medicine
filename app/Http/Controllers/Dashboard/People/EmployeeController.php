@@ -170,7 +170,7 @@ class EmployeeController extends Controller
             abort(404);
         }
         $data['emp'] = $form_data;
-        $data['title'] = $form_data->name.' '.__('site.invoices');
+        $data['title'] = $form_data->name.' '.__('site.orders');
         $data['user'] = $form_data;
         $data['orders'] = Order::where('sales_person_id',$id)->count();
         $data['tasks'] = Task::where('sales_person_id',$id)->count();

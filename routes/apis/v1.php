@@ -45,22 +45,24 @@ Route::group(['prefix' => 'emp',['middleware' => 'auth:api']], function () {
 
     Route::resource('clients', 'Emp\ClientController')->only(['index','store','show']);
     Route::post('clients/edit/{id}','Emp\ClientController@update')->name('clients.edit');
+    Route::get('client_types','Emp\ClientController@types')->name('client_types');
 
-    Route::resource('orders', 'Engineer\OrderController')->only(['index','show']);
-    Route::post('order/reschedule','Engineer\OrderController@reschedule_order')->name('order.reschedule');
-    Route::post('order/status/{id}','Engineer\OrderController@update')->name('order.status');
+
+    Route::resource('orders', 'Emp\OrderController')->only(['index','show','store']);
+    Route::post('order/edit/{id}','Emp\OrderController@update')->name('order.edit');
+    Route::post('order/items/create','Emp\OrderController@add_item')->name('order.items.create');
+    Route::post('order/items/edit','Emp\OrderController@edit_item')->name('order.items.edit');
+    Route::post('order/items/delete','Emp\OrderController@delete_item')->name('order.items.delete');
 });
 
 
 Route::get('temp_order', function () {
-    $json['details'][0]['model_id'] = 1;
-    $json['details'][0]['color_id'] = 1;
-    $json['details'][0]['service_id'] = 1;
-    $json['details'][0]['brand_id'] = 6;
-
-    foreach (json_decode(json_encode($json['details']),TRUE) as $index=>$j){
-        echo $j['model_id'];
-        echo "<br>";
-        return;
-    };
+    $json[0]['product_id'] = 1;
+    $json[0]['quantity'] = 10;
+    ?>
+    <form>
+        <textarea><?php echo json_encode($json) ?></textarea>
+        <input type="submit">
+    </form>
+    <?php
 });

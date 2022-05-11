@@ -25,10 +25,10 @@
                     <h3 class="card-title">{{ $data['title'] }}</h3>
                     <div class="card-tools">
                         @if (auth()->user()->hasPermission('tasks-create'))
-                            <button type="button" onclick="$('#create-model').modal('show')"
+                            <a href="{{ route(env('DASH_URL').'.tasks.create') }}"
                                     class="btn btn-sm btn-success">
                                 @lang("site.add")
-                            </button>
+                            </a>
                         @endif
                     </div>
                 </div>
@@ -41,13 +41,6 @@
         </section>
 
     </div>
-
-    @if (auth()->user()->hasPermission('tasks-create'))
-        @include('dashboard.functions.tasks.create_model')
-    @endif
-    @if (auth()->user()->hasPermission('tasks-update'))
-        @include('dashboard.functions.tasks.edit_model')
-    @endif
 
 @endsection
 @push('styles')

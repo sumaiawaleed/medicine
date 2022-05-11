@@ -1,16 +1,30 @@
 <input type="hidden" name="id" value="{{ $form_data->id }}">
 <div class="row">
-    @foreach(LaravelLocalization::getSupportedLocales() as $locale => $properties)
-        <div class="col-md-6">
-            <div class="form-group" id="{{ $locale }}_city_name_edit_div">
-                @php $name[$locale] = isset($form_data) ? $form_data->getTranslateName($locale) : ""; @endphp
-                <label
-                    for="{{ $locale }}_city_name_edit_input">@lang('site.' . $locale . '.name')</label>
-                <input name="{{ $locale }}_city_name" type="text" value="{{ $name[$locale] }}"
-                       class="form-control" id="{{ $locale }}_city_name_edit_input"
-                       placeholder="@lang('site.' . $locale . '.name')">
-                <span id="{{ $locale }}_city_name_edit_error" class="help-block"></span>
-            </div>
+    <div class="col-md-6">
+        <div class="form-group" id="total_div">
+            <label
+                for="total_input">@lang('site.total')</label>
+            <input name="total" type="text" value="{{ $form_data->total }}"
+                   class="form-control" id="total_input"
+                   placeholder="@lang('site.total')">
+            <span id="total_error" class="help-block"></span>
         </div>
-    @endforeach
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group" id="status">
+            <label
+                for="status_input">@lang('site.status')</label>
+            <select id="status_input" name="status"
+                    class="form-control status" style="width: 100%;">
+                <option value="">@lang('site.select') @lang('site.status')</option>
+                @foreach(__('vars.orders') as $index=>$t )
+                    <option {{ $form_data->status == $index ? 'selected'  : '' }} value="{{ $index }}">{{ $t }}</option>
+                @endforeach
+            </select>
+            <span id="status_error" class="help-block"></span>
+        </div>
+    </div>
+
+
 </div>

@@ -152,4 +152,8 @@ return [
     'to_date' => 'to date',
     'status' => 'status',
     'is_current' => 'current',
+    'status_name' => 'status',
+
+    'orders' => 'orders',
+    'one_orders' => 'order',
 ];

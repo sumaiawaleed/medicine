@@ -4,6 +4,9 @@
         <span class="sr-only"></span>
     </button>
     <div class="dropdown-menu" role="menu">
+        <a href="{{ route(env('DASH_URL').'.clients.show',$id) }}" class="dropdown-item"
+           >@lang('site.profile')</a>
+
         @if (auth()->user()->hasPermission('clients-update'))
             <a onclick="return edit_row('{{ route(env('DASH_URL').'.clients.edit',$id) }}')" class="dropdown-item"
                href="#">@lang('site.edit')</a>

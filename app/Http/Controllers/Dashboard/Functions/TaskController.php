@@ -17,16 +17,16 @@ class TaskController extends Controller
     public function __construct()
     {
         //create read update delete
-        $this->middleware(['permission:orders-read'])->only('index', 'show');
-        $this->middleware(['permission:orders-create'])->only('create', 'store');
-        $this->middleware(['permission:orders-update'])->only('edit', 'update');
-        $this->middleware(['permission:orders-delete'])->only('destroy');
+        $this->middleware(['permission:tasks-read'])->only('index', 'show');
+        $this->middleware(['permission:tasks-create'])->only('create', 'store');
+        $this->middleware(['permission:tasks-update'])->only('edit', 'update');
+        $this->middleware(['permission:tasks-delete'])->only('destroy');
     }//end of constructor
 
     public function index(Request $request){
         $dataTable = new TaskDataTable(0,0);
-        $data['title'] = __('site.orders');
-        return $dataTable->render('dashboard.main.tasks.index',compact('data'));
+        $data['title'] = __('site.tasks');
+        return $dataTable->render('dashboard.functions.tasks.index',compact('data'));
     }
 
     private function validate_page($request , $data = "")
