@@ -29,7 +29,7 @@ class ClientFunController extends Controller
         $data['orders'] = Order::where('client_id',$client->id)->count();
         $data['tasks'] = Task::where('client_id',$client->id)->count();
         $data['invoices'] = Invoice::where('client_id',$client->id)->count();
-        $dataTable = new OrderDataTable($id,0);
+        $dataTable = new OrderDataTable($client->id,0);
         return $dataTable->render('dashboard.people.clients.functions._orders',compact('data'));
     }
 

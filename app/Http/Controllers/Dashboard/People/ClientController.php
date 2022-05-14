@@ -170,6 +170,7 @@ class ClientController extends Controller
         $data['types'] = ClientType::all();
         $data['title'] = $form_data->name.' '.__('site.profile');
         $data['user'] = $form_data;
+        $data['client'] = Client::where('user_id',$id)->first();
         $data['orders'] = Order::where('client_id',$id)->count();
         $data['tasks'] = Task::where('client_id',$id)->count();
         $data['invoices'] = Invoice::where('client_id',$id)->count();

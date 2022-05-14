@@ -4,7 +4,10 @@
         <span class="sr-only"></span>
     </button>
     <div class="dropdown-menu" role="menu">
-        @if (auth()->user()->hasPermission('orders-update'))
+        <a class="dropdown-item"
+           href="{{ route(env('DASH_URL').'.orders.show',$id) }}">@lang('site.show')</a>
+
+    @if (auth()->user()->hasPermission('orders-update'))
             <a onclick="return edit_row('{{ route(env('DASH_URL').'.orders.edit',$id) }}')" class="dropdown-item"
                href="#">@lang('site.edit')</a>
         @endif

@@ -16,13 +16,24 @@ class Setting extends Model
         'facebook',
         'twitter',
         'linkedin',
+        'youtube',
         'email',
         'phone',
         'address',
         'meta_desc',
         'keywords',
-        'terms'
+        'logo'
     ];
+
+    protected $appends = ['image_path'];
+
+    public function getImagePathAttribute()
+    {
+        if( $this->logo)
+            return asset("public/uploads/site/" . $this->logo);
+        else
+            return asset('public/uploads/photo.svg');
+    }
 
     public function getTranslateTitle($local  = 'ar'){
         $name = "";

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\Functions;
 
 use App\DataTables\Functions\OrderDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
@@ -38,8 +39,11 @@ class OrderController extends Controller
     }
 
     public function show($id){
-        $form_data = Order::findOrFail($id);
-        return json_encode($form_data);
+        $data['order'] = Order::with('employee')->findOrFail($id);
+        $data['title'] = __('site.order_no').' '.$id;
+        $data['items']  = OrderItem::with('product')->where('order_id',$id)->get();
+        $data['invoices']  = Invoice::with('employee')->where('order_id',$id)->get();
+        return view('dashboard.functions.orders.show',compact('data'));
     }
 
     public function edit($id)

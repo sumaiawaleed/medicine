@@ -13,7 +13,7 @@
     <div class="card card-outline card-primary">
         <div class="card-header text-center">
             <a href="{{ route('home') }}" class="h1">
-                <img src="{{ asset('public/logo.svg') }}" alt="logo" height="150">
+                <img src="{{ $settings->image_path }}" alt="logo" height="150">
             </a>
         </div>
         <div class="card-body">

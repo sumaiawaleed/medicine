@@ -13,7 +13,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::post('profile/password', 'HomeController@change_password')->name('profile.password');
 
             Route::get('settings','SettingController@index')->name('settings');
-            Route::post('settings','SettingController@update')->name('settings');
+            Route::post('settings','SettingController@store')->name('settings');
 
             Route::resource('categories', 'Pro\CategoryController')->except(['destroy']);
             Route::get('categories/remove/{id}', 'Pro\CategoryController@remove')->name('categories.remove');

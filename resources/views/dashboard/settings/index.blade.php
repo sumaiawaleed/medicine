@@ -28,7 +28,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form role="form" id="edit_new_form" method="post" action="{{ route(env('DASH_URL').'.settings') }}"
+                    <form role="form" class="form" method="post" action="{{ route(env('DASH_URL').'.settings') }}"
                           enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('post') }}
@@ -111,77 +111,43 @@
                                            value="{{ $form_data->linkedin }}">
                                     <span id="linkedin_error" class="help-block"></span>
                                 </div>
+                            </div>
 
-                                <button type="submit" class="btn btn-primary">@lang('site.edit')</button>
-
+                            <div class="col-md-6">
+                                <div class="form-group" id="youtube">
+                                    <label for="youtube_input">@lang('site.youtube')</label>
+                                    <input id="youtube_input" type="url" name="youtube"
+                                           placeholder="@lang('site.youtube')" class="form-control"
+                                           value="{{ $form_data->youtube }}">
+                                    <span id="youtube_error" class="help-block"></span>
+                                </div>
 
                             </div>
-                        </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="file" name="image" id="image_file" class="image">
+                                </div>
+
+                                <div class="form-group">
+                                    @php $image_path = isset($form_data) ? $form_data->image_path : asset('public/uploads/photo.svg'); @endphp
+                                    <img class="image-preview" width="200" height="200" src="{{ $image_path }}">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">@lang('site.edit')</button>
+
+
                     </form>
                 </div>
                 <!-- /.card-body -->
+
             </div>
         </section>
 
     </div>
 @endsection
 @push('scripts')
-    <script>
-        $("#edit_new_form").submit(function (e) {
-            e.preventDefault();
-            btn = $(this).children('btn');
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            var actionurl = e.currentTarget.action;
-            $.ajax({
-                type: 'POST',
-                url: actionurl,
-                data: new FormData(this),
-                dataType: 'text',
-                processData: false,
-                contentType: false,
-                beforeSend: function () {
-                    $('#value').show();
-                },
-                complete: function () {
-                    $('button').removeAttr('disabled');
-                },
-                success: function (data) {
-                    result = jQuery.parseJSON(data);
-                    if (result.success) {
-                        swal({
-                            icon: 'success',
-                            title: '{{ __('site.updated_successfully') }}',
-                            text: "",
-                            type: "success",
-                        });
-                       $('.form-group').removeClass('has-error');
-                        $('.help-block').text('');
-                    } else {
-                        var errors = result.errors;
-                        var html_errors = '<ul>';
-
-                        $('#error').html('');
-                        $.each(errors, function (key, val) {
-                            key = key.replace('[', '');
-                            key = key.replace(']', '');
-                            key = key.replace('.', '');
-                            $("#" + key + "_error").text(val[0]);
-                            $("#" + key + "_div").addClass('has-error');
-                            html_errors += "<li>" + val[0] + "<\li>";
-                        });
-                        html_errors += '</ul>';
-
-                        $('#result_error').html(html_errors);
-                    }
-                },
-                error: function (data) {
-
-                }
-            });
-        });
-    </script>
+    @php $type = "edit"; @endphp
+    @include('dashboard.layouts.js.form.create')
 @endpush

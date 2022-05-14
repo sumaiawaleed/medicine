@@ -32,7 +32,9 @@ return [
     'settings' => 'settings',
     'facebook' => 'facebook',
     'twitter' => 'twitter',
-    'linkedin' => 'snapchat',
+    'linkedin' => 'linked in',
+    'youtube' => 'youtube',
+
 
     'create' => 'create',
     'add' => 'add',
@@ -44,6 +46,7 @@ return [
     'delete' => 'delete',
     'select' => 'select',
     'not_exist' => 'not exist',
+
 
     'en' => [
         'name' => 'english name',
@@ -156,4 +159,6 @@ return [
 
     'orders' => 'orders',
     'one_orders' => 'order',
+
+    'profile' => 'profile',
 ];

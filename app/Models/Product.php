@@ -56,6 +56,10 @@ class Product extends Model
             return asset('public/uploads/photo.svg');
     }
 
+    public function units(){
+        return $this->belongsTo(ProductUnit::class,'product_id','id');
+    }
+
 
     public function getAvailableLabel(){
         if($this->is_available == 1){
