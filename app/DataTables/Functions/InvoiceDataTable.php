@@ -41,13 +41,14 @@ class InvoiceDataTable extends DataTable
                     return '';
                 }
             })
-            ->addColumn('action', 'dashboard.functions.invoices.partials._action');
+            ->addColumn('action', 'dashboard.functions.invoices.partials._action')
+            ->rawColumns(['action','client_name','emp_name']);
     }
 
     public function query(Invoice $model)
     {
         $q = $model->newQuery();
-        $q->with(['client', 'employee']);
+        $q->with(['employee']);
         if ($this->client_id != 0) {
             $q->where('client_id', $this->client_id);
         }

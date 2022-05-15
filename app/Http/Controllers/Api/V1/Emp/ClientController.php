@@ -78,6 +78,33 @@ class ClientController extends Controller
         return;
     }
 
+    public function all_clients(Request $request)
+    {
+        $apis = new ApiHelper();
+        $lang = $request->header('lang');
+        $user = $request->user();
+
+        $clients = User::with(['client'])->whereHas('locations', function ($query) use ($request) {
+            if ($request->city_id != 0) {
+                $query->where('city_id', $request->city_id);
+            }
+            if ($request->area_id != 0) {
+                $query->where('area_id', $request->area_id);
+            }
+        })->orderByDesc('id')
+            ->where('type', 3)->get();
+        $data['clients'] = array();
+        foreach ($clients as $index => $client) {
+            if ($client->client) {
+                $data['clients'][$index]['id'] = $client->client->id;
+                $data['clients'][$index]['name'] = $client->name;
+                $data['clients'][$index]['type'] = $client->client->type_name;
+            }
+        }
+        $apis->createApiResponse(false, 200, "  ", $data);
+        return;
+    }
+
     public function show($id, Request $request)
     {
         $apis = new ApiHelper();

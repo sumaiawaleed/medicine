@@ -34,4 +34,12 @@ class Order extends Model
     public function employee(){
         return $this->belongsTo(User::class,'sales_person_id','id');
     }
+
+    public function getCreatedAtAttribute() {
+        if(!$this->attributes['created_at'])
+            return "";
+
+        $date = $this->attributes['created_at'];
+        return date('Y-m-d',strtotime($date));
+    }
 }

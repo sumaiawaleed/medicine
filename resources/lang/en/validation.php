@@ -203,6 +203,12 @@ return [
         'status' => 'status',
         'is_current' => 'current',
 
+        'amount' => 'amount',
+        'invoice_id' => 'invoice id',
+        'paid_amount' => 'paid amount',
+        'remind_amount' => 'remind amount',
+        'total_amount' => 'total amount'
+
     ],
 
 ];

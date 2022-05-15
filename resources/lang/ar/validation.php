@@ -128,18 +128,48 @@ return [
             'author' => 'المالك بالعربية',
         ],
 
-        'url' => 'الرابط',
+        /* custom */
+        'parent_id' => 'القسم الرئيسي',
+        'city_id' => 'المدينه',
+        'area_id' => 'المنطقة',
+        'address' => 'العنوان',
+
+        'scientific_name' => 'الاسم العلمي',
+        'expire_date' => 'تاريخ انتهاء الصلاحيه',
+        'category_id' => 'فئه',
+        'notes' => 'ملاحظات',
+        'is_available' => 'متاح',
+        'product_name' => 'اسم المنتج',
+
+        'unit_id'  => 'الوحدة',
+        'quantity'  => 'الكميه',
+        'price'  => 'السعر',
+
+        'client_type' => 'نوع العميل',
+        'phone' => 'رقم التلفون',
+        'display_name' => 'اسم العرض',
+        'description' => 'الوصف',
+
+        'client_id' => 'العميل',
+        'sales_person_id' => 'الموظف',
+        'order_id' =>  'الطلب',
+        'total' => 'المجموع',
+        'tax' => 'ضريبه',
         'type' => 'النوع',
 
-        'short_desc' => 'عنوان فرعي',
-        'address' => 'العنوان',
-        'description' => 'الوصف',
-        'status' => 'الحالة',
+        'location' => 'الموقع',
+        'lat' => 'خط العرض',
+        'log' => 'خط الطول',
+        'from_date' => 'من تاريخ',
+        'to_date' => 'الئ تاريخ',
+        'status' => 'الحاله',
+        'is_current' => 'الحالي',
 
-        'counter' => 'العداد',
+        'amount' => 'الكميه',
+        'invoice_id' => 'الفاتوره',
+        'paid_amount' => 'المبلغ المدفوع',
+        'remind_amount' => 'الكميه المتبقية',
+        'total_amount' => 'المبلغ الاجمالي'
 
-        'facebook' => 'فيسبوك',
-        'twitter' => 'تويتر',
-        'linkedin' => 'سناب شات',
-    ]
+    ],
 ];

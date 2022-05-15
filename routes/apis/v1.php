@@ -40,12 +40,17 @@ Route::group(['prefix' => 'client',['middleware' => 'auth:api']], function () {
 });
 
 Route::group(['prefix' => 'emp',['middleware' => 'auth:api']], function () {
-    Route::get('profile', 'Engineer\EngController@profile')->name('profile');
-    Route::post('profile/edit', 'Engineer\EngController@edit')->name('profile.edit');
+    Route::get('profile', 'Emp\ProfileController@profile')->name('profile');
+    Route::post('profile/edit', 'Emp\ProfileController@edit')->name('profile.edit');
+    Route::get('permissions', 'Emp\ProfileController@permissions')->name('permissions');
 
     Route::resource('clients', 'Emp\ClientController')->only(['index','store','show']);
     Route::post('clients/edit/{id}','Emp\ClientController@update')->name('clients.edit');
     Route::get('client_types','Emp\ClientController@types')->name('client_types');
+    Route::get('all_clients','Emp\ClientController@all_clients')->name('all_clients');
+
+    Route::resource('invoices', 'Emp\InvoiceController')->only(['index','store']);
+    Route::post('invoices/edit/{id}','Emp\InvoiceController@update')->name('invoices.edit');
 
 
     Route::resource('orders', 'Emp\OrderController')->only(['index','show','store']);
