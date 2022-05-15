@@ -1,8 +1,6 @@
 <?php
 
-namespace App;
-
-use App\Models\Client;
+namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,5 +16,12 @@ class ClientFinAccount extends Model
 
     public function client(){
         return $this->belongsTo(Client::class,'client_id','id');
+    }
+    public function getClient(){
+        $client  = Client::find($this->client_id);
+        if($client){
+            return User::find($client->user_id);
+        }
+        return  "";
     }
 }

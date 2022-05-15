@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard\People;
 
+use App\DataTables\Functions\ClientFinAccountDataTable;
 use App\DataTables\Functions\InvoiceDataTable;
 use App\DataTables\Functions\OrderDataTable;
 use App\DataTables\Functions\TaskDataTable;
@@ -46,8 +47,8 @@ class ClientFunController extends Controller
         $data['orders'] = Order::where('client_id',$client->id)->count();
         $data['tasks'] = Task::where('client_id',$client->id)->count();
         $data['invoices'] = Invoice::where('client_id',$client->id)->count();
-        $dataTable = new InvoiceDataTable($id,0,0);
-        return $dataTable->render('dashboard.people.employees.functions._invoices',compact('data'));
+        $dataTable = new InvoiceDataTable($client->id,0,0);
+        return $dataTable->render('dashboard.people.clients.functions._invoices',compact('data'));
     }
 
 
@@ -84,6 +85,24 @@ class ClientFunController extends Controller
         $data['invoices'] = Invoice::where('client_id',$client->id)->count();
         $dataTable = new UserLocationDataTable($form_data->id);
         return $dataTable->render('dashboard.people.clients.functions._locations',compact('data'));
+    }
+
+    public function financial($id,Request $request){
+        $data['page'] = 'financial';
+        $form_data = User::findOrFail($id);
+        $client = Client::where('user_id',$id)->first();
+        if($form_data->type != 3){
+            abort(404);
+        }
+        $data['emp'] = $form_data;
+        $data['client'] = $client;
+        $data['title'] = $form_data->name.' '.__('site.client_fin_accounts');
+        $data['user'] = $form_data;
+        $data['orders'] = Order::where('client_id',$client->id)->count();
+        $data['tasks'] = Task::where('client_id',$client->id)->count();
+        $data['invoices'] = Invoice::where('client_id',$client->id)->count();
+        $dataTable = new ClientFinAccountDataTable($client->id);
+        return $dataTable->render('dashboard.people.clients.functions._client_fin_accounts',compact('data'));
     }
 
 }

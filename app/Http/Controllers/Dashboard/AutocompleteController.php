@@ -108,8 +108,25 @@ class AutocompleteController extends Controller
         })->get()->take(20);
         $data = array();
         foreach ($orders as $index => $order) {
-            $data[$index]['id'] = $order->id;
+            $data[$index]['id'] = $order->id.__('site.total').'  : '.($order->total + 0);
         }
         return response()->json($data);
+    }
+
+    public function get_data(Request $request){
+        try{
+            $id_array = explode(__('site.total'), $request->id);
+            $order_id = $id_array[0];
+            $order = Order::with('employee')->findOrFail($order_id);
+            return response()->json(array(
+                'success' => true,
+                'clients' => '<option selected value="'.$order->client_id.'">'.$order->getClient()->name.'</option>',
+                'employees' => '<option selected value="'.$order->sales_person_id.'">'.$order->employee->name.'</option>'
+
+            ), 200);
+        }catch (\Exception $ex){
+            return response()->json(array(
+                'success' => true),200);
+        }
     }
 }

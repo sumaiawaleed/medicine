@@ -24,14 +24,5 @@
                 </a>
             </li>
         @endif
-
-        @if (auth()->user()->hasPermission('locations-read'))
-            <li class="nav-item">
-                <a href="{{ route(env('DASH_URL').'.locations.index') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>@lang('site.locations')</p>
-                </a>
-            </li>
-        @endif
     </ul>
 </li>

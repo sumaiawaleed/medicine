@@ -24,8 +24,15 @@
             },
             success: function (data) {
                 result = jQuery.parseJSON(data);
-
-                if (result.success) {
+                if (result.success == '3'){
+                    swal({
+                        icon: 'error',
+                        title: result.msg,
+                        text: "",
+                        type: "error",
+                    });
+                }
+                else if (result.success) {
 
                     swal({
                         icon: 'success',

@@ -16,6 +16,7 @@ return[
         'updated_done' => 'data updated successfully',
         'delete_done' => 'data deleted successfully',
         'added_successfully' => 'data added successfully',
+        'invoice_invalid' => 'The invoice total is more than order total',
 
         'no_price' => 'The service you want does not supported',
         'invalid_coupon' => 'invalid coupon',
@@ -41,6 +42,24 @@ return[
             1 => 'type 1',
             2 => 'type 2',
         ],
+
+        'units' =>[
+            0 => 'select unit',
+            1 => 'unit 1',
+            2 => 'unit 2',
+            3 => 'unit 3',
+        ],
+
+        'invoices' => [
+            1 => 'placed',
+            2 => 'confirmed',
+            3 => 'assign agent',
+            4 => 'complete',
+            5 => 'user canceled',
+            6 => 'store canceled',
+        ],
+
+
         'order_reschedule_successfully' => 'order reschedule successfully',
         'reschedule_successfully' => 'order reschedule successfully',
         'cannot_reschedule' => 'cannot reschedule order',

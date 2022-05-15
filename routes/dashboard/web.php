@@ -45,6 +45,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::get('clients/tasks/{id}', 'People\ClientFunController@tasks')->name('clients.tasks');
             Route::get('clients/locations/{id}', 'People\ClientFunController@locations')->name('clients.locations');
             Route::get('clients/financial/{id}', 'People\ClientFunController@financial')->name('clients.financial');
+            Route::resource('client_fin_accounts', 'People\FinAccountController')->except(['destroy']);
+            Route::get('client_fin_accounts/remove/{id}', 'People\FinAccountController@remove')->name('client_fin_accounts.remove');
+
+
 
             Route::resource('admins', 'People\UserController')->except(['destroy']);
             Route::get('admins/remove/{id}', 'People\UserController@remove')->name('admins.remove');
@@ -62,6 +66,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::resource('invoices', 'Functions\InvoiceController')->except(['destroy']);
             Route::get('invoices/remove/{id}', 'Functions\InvoiceController@remove')->name('invoices.remove');
 
+            Route::resource('return_invoices', 'Functions\ReturnInvoiceController')->except(['destroy']);
+            Route::get('return_invoices/remove/{id}', 'Functions\ReturnInvoiceController@remove')->name('return_invoices.remove');
+
+
+            Route::resource('receipts', 'Functions\ReceiptController')->except(['destroy']);
+            Route::get('receipts/remove/{id}', 'Functions\ReceiptController@remove')->name('receipts.remove');
+
+
             Route::resource('orders', 'Functions\OrderController')->except(['destroy']);
             Route::get('orders/remove/{id}', 'Functions\OrderController@remove')->name('orders.remove');
 
@@ -77,5 +89,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::get('search/clients','AutocompleteController@clients')->name('search.clients');
             Route::get('search/employees','AutocompleteController@employees')->name('search.employees');
             Route::get('search/orders','AutocompleteController@orders')->name('search.orders');
+            Route::get('get_data','AutocompleteController@get_data')->name('get_data');
         });
     });

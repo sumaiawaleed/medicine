@@ -63,7 +63,7 @@
 
     @yield('content')
 
-    <footer class="main-footer">
+    <footer class="main-footer d-print-none">
         @lang('site.copy')
     </footer>
 

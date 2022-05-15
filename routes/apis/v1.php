@@ -46,6 +46,10 @@ Route::group(['prefix' => 'emp',['middleware' => 'auth:api']], function () {
     Route::resource('clients', 'Emp\ClientController')->only(['index','store','show']);
     Route::post('clients/edit/{id}','Emp\ClientController@update')->name('clients.edit');
     Route::get('client_types','Emp\ClientController@types')->name('client_types');
+    Route::get('all_clients','Emp\ClientController@all_clients')->name('all_clients');
+
+    Route::resource('invoices', 'Emp\InvoiceController')->only(['index','store']);
+    Route::post('invoices/edit/{id}','Emp\InvoiceController@update')->name('invoices.edit');
 
 
     Route::resource('orders', 'Emp\OrderController')->only(['index','show','store']);

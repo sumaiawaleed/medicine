@@ -56,7 +56,7 @@ class OrderController extends Controller
                         'quantity' => $d['quantity']
                     ]);
                 }
-                $apis->createApiResponse(false, 200, __('api.' . $lang . '.updated_done'), "");
+                $apis->createApiResponse(false, 200, __('api.' . $lang . '.added_successfully'), "");
                 return;
             } catch (\Exception $ex) {
                 abort(404);

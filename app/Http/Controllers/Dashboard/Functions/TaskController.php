@@ -55,8 +55,11 @@ class TaskController extends Controller
 
     public function create(Request $request){
         $data['title'] = __('site.create').' '.__('site.one_tasks');
-       if(isset($request->emp_id)){
+       if(isset($request->client_id)){
            $data['emp'] = User::find($request->emp_id);
+       }
+       if(isset($request->client_id)){
+           $data['client'] = Client::with('user')->where('user_id',$request->client_id)->first();
        }
         return view('dashboard.functions.tasks.create',compact('data'));
     }

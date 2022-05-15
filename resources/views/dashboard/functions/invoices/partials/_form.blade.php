@@ -1,40 +1,9 @@
 <div class="row">
     <div class="col-md-6">
-        <div class="form-group" id="client_id">
-            <label
-                for="client_id_input">@lang('site.client_id')</label>
-            <select id="client_id_input" name="client_id"
-                    class="form-control select2 client_id clients" style="width: 100%;">
-                @if(isset($data['client']) and $data['client'])
-                    <option selected value="{{ $data['client']->id }}">{{ $data['client']->name }}</option>
-                @endif
-            </select>
-            <span id="client_id_error" class="help-block"></span>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="form-group" id="sales_person_id">
-            <label
-                for="sales_person_id_input">@lang('site.sales_person_id')</label>
-            <select id="sales_person_id_input" name="sales_person_id"
-                    class="form-control select2 sales_person_id employees" style="width: 100%;">
-                @if(isset($data['emp']) and $data['emp'])
-                    <option selected value="{{ $data['emp']->id }}">{{ $data['emp']->name }}</option>
-                @endif
-            </select>
-            <span id="sales_person_id_error" class="help-block"></span>
-        </div>
-    </div>
-
-</div>
-
-<div class="row">
-    <div class="col-md-6">
         <div class="form-group" id="order_id">
             <label
                 for="order_id_input">@lang('site.order_id')</label>
-            <select id="order_id_input" name="order_id"
+            <select onchange="get_data(value)" id="order_id_input" name="order_id"
                     class="form-control select2 order_id orders" style="width: 100%;">
                 @if(isset($data['order']) and $data['order'])
                     <option selected value="{{ $data['order']->id }}">{{ $data['order']->id }}</option>
@@ -50,7 +19,7 @@
                 for="type_input">@lang('site.type')</label>
             <select id="type_input" name="type"
                     class="form-control type" style="width: 100%;">
-               <option value="">@lang('site.select') @lang('site.type')</option>
+                <option value="">@lang('site.select') @lang('site.type')</option>
                 @foreach(__('vars.invoices') as $index=>$t )
                     <option value="{{ $index }}">{{ $t }}</option>
                 @endforeach
@@ -60,6 +29,46 @@
     </div>
 
 </div>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group" id="client_id">
+            <label
+                for="client_id_input">@lang('site.client_id')</label>
+            <select id="client_id_input" name="client_id"
+                    class="form-control select2 client_id clients" style="width: 100%;">
+                @if(isset($data['order']) and $data['order'] and $data['order']->getClient())
+                    <option selected value="{{ $data['order']->client_id }}">{{ $data['order']->getClient()->name }}</option>
+                @endif
+
+                @if(isset($data['client']) and $data['client'])
+                    <option selected value="{{ $data['client']->id }}">{{ $data['client']->name }}</option>
+                @endif
+            </select>
+            <span id="client_id_error" class="help-block"></span>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group" id="sales_person_id">
+            <label
+                for="sales_person_id_input">@lang('site.sales_person_id')</label>
+            <select id="sales_person_id_input" name="sales_person_id"
+                    class="form-control select2 sales_person_id employees" style="width: 100%;">
+                @if(isset($data['order']) and $data['order'] and $data['order']->employee )
+                    <option selected value="{{ $data['order']->sales_person_id }}">{{ $data['order']->employee->name }}</option>
+                @endif
+                    @if(isset($data['emp']) and $data['emp'])
+                    <option selected value="{{ $data['emp']->id }}">{{ $data['emp']->name }}</option>
+                @endif
+            </select>
+            <span id="sales_person_id_error" class="help-block"></span>
+        </div>
+    </div>
+
+</div>
+
 
 <div class="row">
     <div class="col-md-6">

@@ -30,7 +30,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <h4>
-                                        <i class="fas fa-globe"></i> # {{ $data['title'] }}
+                                        # {{ $data['title'] }}
                                         <small class="float-right">@lang('site.date')
                                             : {{ $data['order']->created_at }}</small>
                                     </h4>
@@ -103,49 +103,38 @@
                                 <!-- /.col -->
                             </div>
                             <!-- /.row -->
-
+                            <br>
                             <div class="row">
-                                <!-- accepted payments column -->
-                                <div class="col-6">
-                                    <p class="lead">Payment Methods:</p>
-                                    <img src="../../dist/img/credit/visa.png" alt="Visa">
-                                    <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
-                                    <img src="../../dist/img/credit/american-express.png" alt="American Express">
-                                    <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
-
-                                    <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning
-                                        heekya handango imeem
-                                        plugg
-                                        dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-                                    </p>
+                                <div class="col-md-12">
+                                    <h2>@lang('site.invoices')</h2>
                                 </div>
-                                <!-- /.col -->
-                                <div class="col-6">
-                                    <p class="lead">Amount Due 2/22/2014</p>
-
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <tbody>
+                                <div class="col-12 table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>@lang('site.one_clients')</th>
+                                            <th>@lang('site.one_employees')</th>
+                                            <th>@lang('site.total')</th>
+                                            <th>@lang('site.tax')</th>
+                                            <th>@lang('site.notes')</th>
+                                            <th>@lang('site.type')</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($data['invoices'] as $invoice)
                                             <tr>
-                                                <th style="width:50%">Subtotal:</th>
-                                                <td>$250.30</td>
+                                                <td>{{ $invoice->id }}</td>
+                                                <td>{{ $invoice->getClient() ?  $item->getClient()->name : '' }}</td>
+                                                <td>{{ $invoice->employee ?  $invoice->employee->name : '' }}</td>
+                                                <td>{{ $invoice->total + 0 }}</td>
+                                                <td>{{ $invoice->tax + 0 }}</td>
+                                                <td>{{ $invoice->notes }}</td>
+                                                <td>{{ __('vars.invoices.'.$invoice->type) }}</td>
                                             </tr>
-                                            <tr>
-                                                <th>Tax (9.3%)</th>
-                                                <td>$10.34</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Shipping:</th>
-                                                <td>$5.80</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Total:</th>
-                                                <td>$265.24</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <!-- /.col -->
                             </div>
@@ -154,16 +143,8 @@
                             <!-- this row will not appear when printing -->
                             <div class="row no-print">
                                 <div class="col-12">
-                                    <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i
-                                            class="fas fa-print"></i> Print</a>
-                                    <button type="button" class="btn btn-success float-right"><i
-                                            class="far fa-credit-card"></i> Submit
-                                        Payment
-                                    </button>
-                                    <button type="button" class="btn btn-primary float-right"
-                                            style="margin-right: 5px;">
-                                        <i class="fas fa-download"></i> Generate PDF
-                                    </button>
+                                    <button onclick="window.print()" rel="noopener" target="_blank" class="btn btn-default"><i
+                                            class="fas fa-print"></i> @lang('site.print')</button>
                                 </div>
                             </div>
                         </div>
