@@ -18,7 +18,6 @@ return [
     'privileges' => 'privileges',
     'update' => 'update',
     'read' => 'read',
-    'show' => 'show',
     'done_active' => 'Item has been activated successfully',
     'done_block' => 'Item has been blocked successfully',
     'confirm_active' => 'Are you sure you want active this Item?',
@@ -162,31 +161,4 @@ return [
     'one_orders' => 'order',
 
     'profile' => 'profile',
-    'order_no' => 'Order no.',
-    'print' => 'print',
-    'date' => 'date',
-    'image' => 'image',
-    'l_orders' => 'Latest Orders',
-    'v_orders' => 'View All Orders',
-    'l_clients' => 'Latest Clients',
-    'v_clients' => 'View All Clients',
-    'l_products' => 'Most Requested Products',
-    'top_emps' => 'Top Employees',
-    'p_tasks' => 'Pending tasks',
-    'v_products' => 'View All Products',
-    'invoice_invalid' => 'The invoice total is more than order total',
-
-    'return_invoices' => 'return invoices',
-    'one_return_invoices' => 'return invoice',
-    'amount' => 'amount',
-    'invoice_id' => 'invoice id',
-
-    'receipts' => 'receipts',
-    'one_receipts' => 'receipt',
-    'paid_amount' => 'paid amount',
-    'remind_amount' => 'remind amount',
-
-    'client_fin_accounts' => 'financial accounts',
-    'one_client_fin_accounts' => 'financial account',
-    'total_amount' => 'total amount'
 ];
