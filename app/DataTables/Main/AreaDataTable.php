@@ -13,14 +13,14 @@ class AreaDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('city_name',function ($data){
-                if($data->city){
+            ->addColumn('city_name', function ($data) {
+                if ($data->city) {
                     return $data->city->getTranslateName(app()->getLocale());
-                }else{
-                    return  '';
+                } else {
+                    return '';
                 }
             })
-            ->addColumn('name',function ($data){
+            ->addColumn('name', function ($data) {
                 return $data->getTranslateName(app()->getLocale());
             })
             ->addColumn('action', 'dashboard.main.areas.partials._action');
@@ -31,21 +31,27 @@ class AreaDataTable extends DataTable
         $q = $model->newQuery();
         $q->with('city');
         $q->orderByDesc('id');
+        if($this->request->get('city_id'))
+            $q->where('city_id',$this->request->get('city_id'));
+        if($this->request->get('query')){
+            $q->where('name', 'LIKE', '%'.$this->request->get('query').'%');
+        }
         return $q;
     }
 
     public function html()
     {
         return $this->builder()
-                    ->setTableId('table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('print'),
-                        Button::make('reload')
-                    );
+            ->setTableId('table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->dom('Bfrtip')
+            ->orderBy(1)
+            ->buttons(
+                Button::make('export'),
+                Button::make('print'),
+                Button::make('reload')
+            );
     }
 
 

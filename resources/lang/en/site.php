@@ -12,7 +12,7 @@ return [
     'dash_users' => 'Admins',
     'one_dash_users' => 'Admin',
     'logout' => 'logout',
-    'copy' => '<strong>Copyright &copy; '.date('Y').' <a href="'.route('home').'">Cedra</a>.</strong> All rights reserved.',
+    'copy' => '<strong>Copyright &copy; '.date('Y'),
 
     'password_confirmation' => 'password confirmation',
     'privileges' => 'privileges',
@@ -161,4 +161,31 @@ return [
     'one_orders' => 'order',
 
     'profile' => 'profile',
+    'order_no' => 'order no.',
+    'print' => 'print',
+    'date' => 'date',
+    'image' => 'image',
+    'l_orders' => 'latest orders',
+    'v_orders' => 'view all orders',
+    'l_clients' => 'latest clients',
+    'v_clients' => 'view all clients',
+    'l_products' => 'most ordered products',
+    'top_emps' => ' Top employees',
+    'p_tasks' => 'pending tasks',
+    'v_products' => 'view all products',
+    'invoice_invalid' => 'cannot add invoice with this total',
+
+    'return_invoices' => 'return invoices',
+    'one_return_invoices' => 'return invoice ',
+    'amount' => 'amount',
+    'invoice_id' => 'invoice id',
+
+    'receipts' => 'receipts',
+    'one_receipts' => 'receipt',
+    'paid_amount' => 'paid amount',
+    'remind_amount' => 'remind amount',
+
+    'client_fin_accounts' => 'financial accounts',
+    'one_client_fin_accounts' => 'financial account',
+    'total_amount' => 'total amount'
 ];

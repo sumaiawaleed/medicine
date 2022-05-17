@@ -26,7 +26,7 @@ class OrderDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('status_name', function ($data) {
                 return $data->getStatusLable();
-                    })
+            })
             ->addColumn('emp_name', function ($data) {
                 if ($data->employee) {
                     return '<a href="' . route(env('DASH_URL') . '.employees.show', $data->sales_person_id) . '">' . $data->employee->name . '</a>';
@@ -41,7 +41,7 @@ class OrderDataTable extends DataTable
                 }
             })
             ->addColumn('action', 'dashboard.functions.orders.partials._action')
-            ->rawColumns(['action','client_name','emp_name','status_name']);
+            ->rawColumns(['action', 'client_name', 'emp_name', 'status_name']);
     }
 
     public function query(Order $model)
@@ -52,9 +52,20 @@ class OrderDataTable extends DataTable
             $q->where('client_id', $this->client_id);
         }
 
+        if ($this->request->get('client_id'))
+            $q->where('client_id', $this->request->get('client_id'));
+
+
         if ($this->emp_id != 0) {
             $q->where('sales_person_id', $this->emp_id);
+
         }
+        if ($this->request->get('sales_person_id'))
+            $q->where('sales_person_id', $this->request->get('sales_person_id'));
+
+        if ($this->request->get('status'))
+            $q->where('status', $this->request->get('status'));
+
         return $q;
     }
 
@@ -67,10 +78,8 @@ class OrderDataTable extends DataTable
             ->dom('Bfrtip')
             ->orderBy(1)
             ->buttons(
-                Button::make('create'),
                 Button::make('export'),
                 Button::make('print'),
-                Button::make('reset'),
                 Button::make('reload')
             );
     }

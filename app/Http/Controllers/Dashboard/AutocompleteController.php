@@ -41,6 +41,17 @@ class AutocompleteController extends Controller
                 $data[$index]['name'] = $category->getTranslateName(app()->getLocale());
             }
             return response()->json($data);
+        }else{
+            $categories = Category::when($request->q, function ($q) use ($request) {
+                return $q->where('name', 'LIKE', '%' . $request->q . '%');
+            })->where('parent_id','!=' ,0)->select("id", "name")
+                ->get()->take(20);
+            $data = array();
+            foreach ($categories as $index => $category) {
+                $data[$index]['id'] = $category->id;
+                $data[$index]['name'] = $category->getTranslateName(app()->getLocale());
+            }
+            return response()->json($data);
         }
     }
 

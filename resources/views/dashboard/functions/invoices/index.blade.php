@@ -34,6 +34,33 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                    <form class="mb-5">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <select name="client_id"
+                                        class="form-control select2 client_id clients" style="width: 100%;">
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="sales_person_id"
+                                        class="form-control select2 sales_person_id employees" style="width: 100%;">
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="type_input" name="type"
+                                        class="form-control type" style="width: 100%;">
+                                    <option value="">@lang('site.select') @lang('site.type')</option>
+                                    @foreach(__('vars.invoices') as $index=>$t )
+                                        <option value="{{ $index }}">{{ $t }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="submit" class="btn btn-sm btn-success" value="{{ __('site.search') }}">
+                            </div>
+                        </div>
+                    </form>
+
                     {!! $dataTable->table() !!}
                 </div>
                 <!-- /.card-body -->

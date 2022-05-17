@@ -56,6 +56,15 @@ class TaskDataTable extends DataTable
         if ($this->emp_id != 0) {
             $q->where('sales_person_id', $this->emp_id);
         }
+
+        if ($this->request->get('client_id'))
+            $q->where('client_id', $this->request->get('client_id'));
+        if ($this->request->get('sales_person_id'))
+            $q->where('sales_person_id', $this->request->get('sales_person_id'));
+
+        if ($this->request->get('status'))
+            $q->where('status', $this->request->get('status'));
+
         return $q;
     }
     public function html()
@@ -67,10 +76,8 @@ class TaskDataTable extends DataTable
                     ->dom('Bfrtip')
                     ->orderBy(1)
                     ->buttons(
-                        Button::make('create'),
                         Button::make('export'),
                         Button::make('print'),
-                        Button::make('reset'),
                         Button::make('reload')
                     );
     }

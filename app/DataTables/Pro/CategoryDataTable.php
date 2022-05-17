@@ -29,6 +29,11 @@ class CategoryDataTable extends DataTable
     {
         $q = $model->newQuery();
         $q->orderByDesc('id');
+        if($this->request->get('parent_id'))
+            $q->where('parent_id',$this->request->get('parent_id'));
+        if($this->request->get('query')){
+            $q->where('name', 'LIKE', '%'.$this->request->get('query').'%');
+        }
         return $q;
     }
 
@@ -41,6 +46,7 @@ class CategoryDataTable extends DataTable
                     ->dom('Bfrtip')
                     ->orderBy(1)
                     ->buttons(
+                        Button::make('export'),
                         Button::make('print'),
                         Button::make('reload')
                     );

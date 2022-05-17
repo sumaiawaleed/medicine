@@ -34,9 +34,9 @@
                          alt="{{ auth()->user()->name }}">
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    {{--                    <a href="{{ route(env('DASH_URL').'.profile') }}" class="dropdown-item">--}}
-                    {{--                        @lang('site.profile')--}}
-                    {{--                    </a>--}}
+                    <a href="{{ route(env('DASH_URL').'.profile') }}" class="dropdown-item">
+                        @lang('site.profile')
+                    </a>
                     <div class="dropdown-divider"></div>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                           style="display: none;">
@@ -49,6 +49,23 @@
                     </a>
                 </div>
             </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="fa fa-globe"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <a href="{{ LaravelLocalization::getLocalizedURL('en', null, [], true) }}" class="dropdown-item">
+                        EN
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+                    <a href="{{ LaravelLocalization::getLocalizedURL('ar', null, [], true) }}" class="dropdown-item">
+                        العربية
+                    </a>
+                </div>
+            </li>
+
 
             <li class="nav-item">
                 <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -64,7 +81,7 @@
     @yield('content')
 
     <footer class="main-footer d-print-none">
-        @lang('site.copy')
+        @lang('site.copy') {{ $settings->getTranslateTitle(app()->getLocale()) }}
     </footer>
 
 </div>

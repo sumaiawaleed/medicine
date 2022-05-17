@@ -26,7 +26,7 @@
                     <div class="card-tools">
                         @if (auth()->user()->hasPermission('products-create'))
                             <a href="{{ route(env('DASH_URL').'.products.create') }}"
-                                    class="btn btn-sm btn-success">
+                               class="btn btn-sm btn-success">
                                 @lang("site.add")
                             </a>
                         @endif
@@ -34,6 +34,23 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+
+                    <form class="mb-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="search" name="query" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <select id="category_id_input" name="category_id"
+                                        class="form-control select2 category_id categories" style="width: 100%;">
+                                </select></div>
+                            <div class="col-md-4">
+                                <input type="submit" class="btn btn-sm btn-success" value="{{ __('site.search') }}">
+                            </div>
+                        </div>
+                    </form>
+
+
                     {!! $dataTable->table() !!}
                 </div>
                 <!-- /.card-body -->
@@ -50,11 +67,31 @@
           href="{{ asset("public/dashboard/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}">
     <link rel="stylesheet"
           href="{{ asset("public/dashboard/plugins/datatables-buttons/css/buttons.bootstrap4.min.css")}}">
+    <link rel="stylesheet" href="{{ asset('public/dashboard/select2/dist/css/select2.min.css')}}">
 @endpush
 
 @push('scripts')
     @php $table_id = "table";@endphp
     @include('dashboard.layouts.js._print')
     @include('dashboard.layouts.js.operations.delete')
+    <script src="{{ asset('public/dashboard/select2/dist/js/select2.full.min.js')}}"></script>
+    <script>
+        $('.categories').select2({
+            placeholder: '@lang('site.select') @lang('site.one_categories')',
+            ajax: {
+                url: '{{ route(env('DASH_URL').'.search.categories') }}?',
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {text: item.name, id: item.id}
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+    </script>
 
 @endpush

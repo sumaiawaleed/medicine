@@ -34,6 +34,21 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                    <form class="mb-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="search" name="query" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <select  name="city_id"
+                                        class="form-control select2 city_id cities" style="width: 100%;">
+                                </select>                            </div>
+                            <div class="col-md-4">
+                                <input type="submit" class="btn btn-sm btn-success" value="{{ __('site.search') }}">
+                            </div>
+                        </div>
+                    </form>
+
                     {!! $dataTable->table() !!}
                 </div>
                 <!-- /.card-body -->

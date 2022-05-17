@@ -15,7 +15,7 @@ class CityDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('name',function ($data){
+            ->addColumn('name', function ($data) {
                 return $data->getTranslateName(app()->getLocale());
             })
             ->addColumn('action', 'dashboard.main.cities.partials._action');
@@ -25,21 +25,25 @@ class CityDataTable extends DataTable
     {
         $q = $model->newQuery();
         $q->orderByDesc('id');
+        if ($this->request->get('query')) {
+            $q->where('name', 'LIKE', '%' . $this->request->get('query') . '%');
+        }
         return $q;
     }
 
     public function html()
     {
         return $this->builder()
-                    ->setTableId('table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('print'),
-                        Button::make('reload')
-                    );
+            ->setTableId('table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->dom('Bfrtip')
+            ->orderBy(1)
+            ->buttons(
+                Button::make('export'),
+                Button::make('print'),
+                Button::make('reload')
+            );
     }
 
 

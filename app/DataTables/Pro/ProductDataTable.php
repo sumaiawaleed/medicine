@@ -1,6 +1,7 @@
 <?php
 
 namespace App\DataTables\Pro;
+
 use App\Models\Product;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
@@ -12,22 +13,22 @@ class ProductDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('category_name',function ($data){
-                if($data->category){
+            ->addColumn('category_name', function ($data) {
+                if ($data->category) {
                     return $data->category->getTranslateName(app()->getLocale());
-                }else{
-                    return  '';
+                } else {
+                    return '';
                 }
-            }) ->addColumn('product_name',function ($data){
+            })->addColumn('product_name', function ($data) {
                 return $data->getTranslateName(app()->getLocale());
-            })->addColumn('is_available_name',function ($data){
+            })->addColumn('is_available_name', function ($data) {
                 return $data->getAvailableLabel();
             })
             ->addColumn('image_path', function ($data) {
-                return '<img src="'.$data->image_path.'" width="100px">';
+                return '<img src="' . $data->image_path . '" width="100px">';
             })
             ->addColumn('action', 'dashboard.product.products.partials._action')
-            ->rawColumns(['action', 'is_available_name','image_path']);
+            ->rawColumns(['action', 'is_available_name', 'image_path']);
     }
 
     public function query(Product $model)
@@ -35,21 +36,29 @@ class ProductDataTable extends DataTable
         $q = $model->newQuery();
         $q->with('category');
         $q->orderByDesc('id');
+        if ($this->request->get('category_id'))
+            $q->where('category_id', $this->request->get('category_id'));
+        if ($this->request->get('query')) {
+            $q->where('name', 'LIKE', '%' . $this->request->get('query') . '%')
+                ->orWhere('scientific_name', 'LIKE', '%' . $this->request->get('query') . '%')
+                ->orWhere('notes', 'LIKE', '%' . $this->request->get('query') . '%');
+        }
         return $q;
     }
 
     public function html()
     {
         return $this->builder()
-                    ->setTableId('table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('print'),
-                        Button::make('reload')
-                    );
+            ->setTableId('table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->dom('Bfrtip')
+            ->orderBy(1)
+            ->buttons(
+                Button::make('export'),
+                Button::make('print'),
+                Button::make('reload')
+            );
     }
 
 

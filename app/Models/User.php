@@ -69,4 +69,12 @@ class User extends Authenticatable
     public function locations(){
         return $this->hasMany(UserLocation::class);
     }
+
+    public function getCreatedAtAttribute() {
+        if(!$this->attributes['created_at'])
+            return "";
+
+        $date = $this->attributes['created_at'];
+        return date('Y-m-d',strtotime($date));
+    }
 }
