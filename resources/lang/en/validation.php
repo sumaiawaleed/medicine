@@ -166,7 +166,7 @@ return [
             'address' => 'arabic address',
         ],
 
-       /* custom */
+        /* custom */
         'parent_id' => 'parent id',
         'city_id' => 'city',
         'area_id' => 'area',
@@ -179,9 +179,9 @@ return [
         'is_available' => 'is available',
         'product_name' => 'product name',
 
-        'unit_id'  => 'unit',
-        'quantity'  => 'quantity',
-        'price'  => 'price',
+        'unit_id' => 'unit',
+        'quantity' => 'quantity',
+        'price' => 'price',
 
         'client_type' => 'client type',
         'phone' => 'phone',
@@ -190,7 +190,7 @@ return [
 
         'client_id' => 'client',
         'sales_person_id' => 'employee',
-        'order_id' =>  'order',
+        'order_id' => 'order',
         'total' => 'total',
         'tax' => 'tax',
         'type' => 'type',
@@ -207,7 +207,10 @@ return [
         'invoice_id' => 'invoice id',
         'paid_amount' => 'paid amount',
         'remind_amount' => 'remind amount',
-        'total_amount' => 'total amount'
+        'total_amount' => 'total amount',
+        'company_name' => 'company name',
+        'subscribe_id' => 'subscribe',
+
 
     ],
 

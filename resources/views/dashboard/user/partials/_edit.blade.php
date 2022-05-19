@@ -1,4 +1,4 @@
-<form method="post" enctype="multipart/form-data" action="{{ route(env('DASH_URL').'.profile') }}" class="edit_form">
+<form method="post" enctype="multipart/form-data" action="{{ route(env('DASH_URL').'.profile') }}" class="form">
     {{ csrf_field() }}
     {{ method_field('post') }}
     <div class="row">

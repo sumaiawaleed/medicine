@@ -34,6 +34,29 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+
+{{--                    <form class="mb-5">--}}
+{{--                        <div class="row">--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <input type="search" name="query" class="form-control">--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <div class="row">--}}
+{{--                                    <div class="col-md-6">--}}
+{{--                                        <input type="radio" name="status" value="1"> @lang('site.active')--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-md-6">--}}
+{{--                                        <input type="radio" name="status" value="2"> @lang('site.not_active')--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-4">--}}
+{{--                                <input type="submit" class="btn btn-sm btn-success" value="{{ __('site.search') }}">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </form>--}}
+
+
                     {!! $dataTable->table() !!}
                 </div>
                 <!-- /.card-body -->
@@ -48,6 +71,7 @@
     @if (auth()->user()->hasPermission('clients-update'))
         @include('dashboard.people.clients.edit_model')
     @endif
+    @include('dashboard.people.clients.subscribe._models')
 
 @endsection
 @push('styles')
@@ -63,4 +87,5 @@
     @php $table_id = "table"; @endphp
     @include('dashboard.layouts.js._print')
     @include('dashboard.layouts.js._table_form')
+    @include('dashboard.people.clients.subscribe._js')
 @endpush

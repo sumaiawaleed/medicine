@@ -14,6 +14,7 @@ use App\Models\Order;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClientFunController extends Controller
 {
@@ -103,6 +104,50 @@ class ClientFunController extends Controller
         $data['invoices'] = Invoice::where('client_id',$client->id)->count();
         $dataTable = new ClientFinAccountDataTable($client->id);
         return $dataTable->render('dashboard.people.clients.functions._client_fin_accounts',compact('data'));
+    }
+
+    public function add_subscribe(Request $request){
+        $client = Client::where('user_id',$request->add_sub_id)->first();
+        if(!$client){
+            abort(404);
+        }
+        $rules = [
+            'add_sub_id' => 'required',
+            'add_subscribe_id' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(array(
+                'success' => false,
+                'errors' => $validator->getMessageBag()->toArray()
+
+            ), 200);
+        } else {
+            $request_data = [
+                'subscribe_id' => $request->add_subscribe_id,
+                'subscribe_date' => now(),
+                'subscribe_status' => 1,
+            ];
+            $client->update($request_data);
+            return response()->json(array('success' => true), 200);
+        }
+
+    }
+
+    public function cancel_subscribe(Request $request){
+        $client = Client::where('user_id',$request->id)->first();
+        if(!$client){
+            abort(404);
+        }
+
+        $request_data = [
+            'subscribe_id' => 0,
+            'subscribe_date' => null,
+            'subscribe_status' => 0,
+        ];
+        $client->update($request_data);
+        return response()->json(array('success' => true), 200);
+
     }
 
 }

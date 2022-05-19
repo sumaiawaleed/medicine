@@ -15,6 +15,12 @@
         table{
             max-width: 100% !important;
         }
+        #table_filter{
+            display:none;
+        }
+        .help-block{
+            color:red;
+        }
     </style>
 </head>
 <body class="hold-transition sidebar-mini" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">

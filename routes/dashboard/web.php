@@ -39,12 +39,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
             Route::resource('clients', 'People\ClientController')->except(['destroy']);
             Route::get('clients/remove/{id}', 'People\ClientController@remove')->name('clients.remove');
+            Route::resource('subscribes', 'Main\SubscribeController')->except(['destroy']);
+            Route::get('subscribes/remove/{id}', 'Main\SubscribeController@remove')->name('subscribes.remove');
+
             Route::get('clients/remove/{id}', 'People\ClientController@remove')->name('clients.remove');
             Route::get('clients/invoices/{id}', 'People\ClientFunController@invoices')->name('clients.invoices');
             Route::get('clients/orders/{id}', 'People\ClientFunController@orders')->name('clients.orders');
             Route::get('clients/tasks/{id}', 'People\ClientFunController@tasks')->name('clients.tasks');
             Route::get('clients/locations/{id}', 'People\ClientFunController@locations')->name('clients.locations');
             Route::get('clients/financial/{id}', 'People\ClientFunController@financial')->name('clients.financial');
+            Route::post('clients/subscribe/add', 'People\ClientFunController@add_subscribe')->name('clients.subscribe.add');
+            Route::get('clients/subscribe/cancel', 'People\ClientFunController@cancel_subscribe')->name('clients.subscribe.cancel');
             Route::resource('client_fin_accounts', 'People\FinAccountController')->except(['destroy']);
             Route::get('client_fin_accounts/remove/{id}', 'People\FinAccountController@remove')->name('client_fin_accounts.remove');
 

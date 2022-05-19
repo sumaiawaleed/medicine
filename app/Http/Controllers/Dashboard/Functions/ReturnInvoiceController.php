@@ -75,7 +75,7 @@ class ReturnInvoiceController extends Controller
 
     public function update(Request $request, $id)
     {
-        $return_invoice = Invoice::findOrFail($request->id);
+        $return_invoice = ReturnInvoice::findOrFail($request->id);
         $validator = $this->validate_page($request);
         if ($validator->fails()) {
             return response()->json(array(
@@ -84,29 +84,12 @@ class ReturnInvoiceController extends Controller
 
             ), 200);
         } else {
-
-            $id_array = explode(__('site.total'), $request->order_id);
-            $order_id = $id_array[0];
-            if ($this->check_amount($order_id, $request->total, $request->tax,$return_invoice->id)) {
-                $request_data = [
-                    'client_id' => $request->client_id,
-                    'sales_person_id' => $request->sales_person_id,
-                    'order_id' => $order_id,
-                    'total' => $request->total,
-                    'tax' => $request->tax,
-                    'notes' => $request->notes,
-                    'type' => $request->type,
-                ];
-                $return_invoice->update($request_data);
-                return response()->json(array('success' => true), 200);
-
-            } else {
-                return response()->json(array(
-                    'success' => 3,
-                    'msg' => __('site.invoice_invalid')
-
-                ), 200);
-            }
+            $request_data = [
+                'amount' => $request->amount,
+                'notes' => $request->notes,
+            ];
+            $return_invoice->update($request_data);
+            return response()->json(array('success' => true), 200);
         }
     }
 

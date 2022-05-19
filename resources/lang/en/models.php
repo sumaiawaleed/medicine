@@ -20,4 +20,5 @@ return [
     'locations' ,
     'user_locations' ,
     'tasks' ,
+    'subscribes' ,
 ];

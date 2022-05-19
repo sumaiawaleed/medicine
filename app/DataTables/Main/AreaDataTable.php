@@ -20,8 +20,10 @@ class AreaDataTable extends DataTable
                     return '';
                 }
             })
-            ->addColumn('name', function ($data) {
-                return $data->getTranslateName(app()->getLocale());
+            ->addColumn('ar_name', function ($data) {
+                return $data->getTranslateName('ar');
+            })->addColumn('en_name', function ($data) {
+                return $data->getTranslateName('en');
             })
             ->addColumn('action', 'dashboard.main.areas.partials._action');
     }
@@ -59,7 +61,8 @@ class AreaDataTable extends DataTable
     {
         return [
             Column::make('id')->title('#')->data('id')->name('id'),
-            Column::make('name')->title(__('site.area_name'))->data('name')->name('name'),
+            Column::make('ar_name')->title(__('site.ar_name'))->data('ar_name')->name('ar_name'),
+            Column::make('en_name')->title(__('site.en_name'))->data('en_name')->name('en_name'),
             Column::make('city_name')->title(__('site.city_name'))->data('city_name')->name('city_name'),
             Column::computed('action')
                 ->exportable(false)

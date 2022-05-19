@@ -72,6 +72,10 @@ class ClientController extends Controller
                 $data['clients'][$index]['id'] = $client->client->id;
                 $data['clients'][$index]['name'] = $client->name;
                 $data['clients'][$index]['type'] = $client->client->type_name;
+                $data['clients'][$index]['subscribe'] = ($client->client->getSubscribe()) ?  $client->client->getSubscribe()->getTranslateName($lang) : '';
+                $data['clients'][$index]['subscribe_id'] = $client->client->subscribe_id;
+                $data['clients'][$index]['subscribe_status'] = $client->client->subscribe_status;
+                $data['clients'][$index]['subscribe_date'] = $client->client->subscribe_date;
             }
         }
         $apis->createApiResponse(false, 200, "  ", $data);
@@ -84,21 +88,20 @@ class ClientController extends Controller
         $lang = $request->header('lang');
         $user = $request->user();
 
-        $clients = User::with(['client'])->whereHas('locations', function ($query) use ($request) {
-            if ($request->city_id != 0) {
-                $query->where('city_id', $request->city_id);
-            }
-            if ($request->area_id != 0) {
-                $query->where('area_id', $request->area_id);
-            }
-        })->orderByDesc('id')
-            ->where('type', 3)->get();
+        $clients = User::with(['client'])
+            ->orderByDesc('id')
+            ->where('type', 3)
+            ->get();
         $data['clients'] = array();
         foreach ($clients as $index => $client) {
             if ($client->client) {
                 $data['clients'][$index]['id'] = $client->client->id;
                 $data['clients'][$index]['name'] = $client->name;
                 $data['clients'][$index]['type'] = $client->client->type_name;
+                $data['clients'][$index]['subscribe'] = ($client->client->getSubscribe()) ?  $client->client->getSubscribe()->getTranslateName($lang) : '';
+                $data['clients'][$index]['subscribe_id'] = $client->client->subscribe_id;
+                $data['clients'][$index]['subscribe_status'] = $client->client->subscribe_status;
+                $data['clients'][$index]['subscribe_date'] = $client->client->subscribe_date;
             }
         }
         $apis->createApiResponse(false, 200, "  ", $data);
@@ -167,6 +170,10 @@ class ClientController extends Controller
                 Client::create([
                     'user_id' => $user->id,
                     'type_id' => $request->client_type,
+                    'subscribe_id' => $request->subscribe_id,
+                    'subscribe_date' => now(),
+                    'subscribe_status' => 1,
+                    'company_name' => $request->company_name,
                 ]);
             }
             $role = Role::find(2);
@@ -214,7 +221,8 @@ class ClientController extends Controller
                 $client = Client::where('user_id', $user->id)->first();
                 if ($client) {
                     $client->update([
-                        'type_id' => $request->client_type
+                        'type_id' => $request->client_type,
+                        'company_name' => $request->company_name,
                     ]);
                 }
             }

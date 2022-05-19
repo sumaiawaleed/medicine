@@ -24,7 +24,7 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ $data['title'] }}</h3>
                     <div class="card-tools">
-                        @if (auth()->user()->hasPermission('employees-create'))
+                        @if (auth()->user()->hasPermission('subscribes-create'))
                             <button type="button" onclick="$('#create-model').modal('show')"
                                     class="btn btn-sm btn-success">
                                 @lang("site.add")
@@ -34,6 +34,16 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                    <form class="mb-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="search" name="query" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="submit" class="btn btn-sm btn-success" value="{{ __('site.search') }}">
+                            </div>
+                        </div>
+                    </form>
 
                     {!! $dataTable->table() !!}
                 </div>
@@ -43,11 +53,11 @@
 
     </div>
 
-    @if (auth()->user()->hasPermission('employees-create'))
-        @include('dashboard.people.employees.create_model')
+    @if (auth()->user()->hasPermission('subscribes-create'))
+        @include('dashboard.main.subscribes.create_model')
     @endif
-    @if (auth()->user()->hasPermission('employees-update'))
-        @include('dashboard.people.employees.edit_model')
+    @if (auth()->user()->hasPermission('subscribes-update'))
+        @include('dashboard.main.subscribes.edit_model')
     @endif
 
 @endsection
@@ -58,10 +68,12 @@
           href="{{ asset("public/dashboard/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}">
     <link rel="stylesheet"
           href="{{ asset("public/dashboard/plugins/datatables-buttons/css/buttons.bootstrap4.min.css")}}">
+    <link rel="stylesheet" href="{{ asset('public/dashboard/select2/dist/css/select2.min.css')}}">
 @endpush
 
 @push('scripts')
-    @php $table_id = "table"; @endphp
+    @php $table_id = "table";
+    @endphp
     @include('dashboard.layouts.js._print')
     @include('dashboard.layouts.js._table_form')
 @endpush

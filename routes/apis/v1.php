@@ -12,6 +12,7 @@ Route::get('main/locations', 'MainController@locations')->name('main.locations')
 Route::get('main/products', 'MainController@products')->name('main.products');
 Route::get('main/all_products', 'MainController@all_products')->name('main.all_products');
 Route::get('main/categories', 'MainController@categories')->name('main.categories');
+Route::get('main/subscribes', 'MainController@subscribes')->name('main.subscribes');
 
 
 
@@ -48,9 +49,16 @@ Route::group(['prefix' => 'emp',['middleware' => 'auth:api']], function () {
     Route::post('clients/edit/{id}','Emp\ClientController@update')->name('clients.edit');
     Route::get('client_types','Emp\ClientController@types')->name('client_types');
     Route::get('all_clients','Emp\ClientController@all_clients')->name('all_clients');
+    Route::get('tasks','Emp\TaskController@index')->name('tasks');
 
     Route::resource('invoices', 'Emp\InvoiceController')->only(['index','store']);
     Route::post('invoices/edit/{id}','Emp\InvoiceController@update')->name('invoices.edit');
+
+    Route::resource('return_invoices', 'Emp\ReturnInvoiceController')->only(['index','store','destroy']);
+    Route::post('return_invoices/edit/{id}','Emp\ReturnInvoiceController@update')->name('return_invoices.edit');
+
+    Route::resource('receipts', 'Emp\ReceiptController')->only(['index','store','destroy']);
+    Route::post('receipts/edit/{id}','Emp\ReceiptController@update')->name('receipts.edit');
 
 
     Route::resource('orders', 'Emp\OrderController')->only(['index','show','store']);

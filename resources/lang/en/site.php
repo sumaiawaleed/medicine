@@ -187,5 +187,25 @@ return [
 
     'client_fin_accounts' => 'financial accounts',
     'one_client_fin_accounts' => 'financial account',
-    'total_amount' => 'total amount'
+    'total_amount' => 'total amount',
+    'search' => 'search',
+
+    'subscribes' => 'subscribes',
+    'subscribe' => 'subscribe',
+    'one_subscribes' => 'subscribe',
+    'period' => 'period',
+    'ar_name' => 'Arabic name',
+    'en_name' => 'English name',
+    'subscribe_id' => 'subscribe',
+    'months' => 'months',
+    'subscribe_date' => 'subscribe date',
+    'subscribe_status' => 'subscribe status',
+    'canceled_successfully' => 'canceled successfully',
+    'cancel_subscribe' => 'cancel subscribe',
+    'add_subscribe' => 'renew subscribe',
+    'confirm_cancel' => 'Are you sure you want to cancel this client subscription?',
+    'company_name' => 'company name',
+    'old_password' => 'old password',
+    'my_profile' => 'my profile',
+    'change_password' => 'change password',
 ];

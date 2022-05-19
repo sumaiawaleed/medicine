@@ -17,7 +17,7 @@
             <ul class="users-list clearfix">
                @foreach($data['top_emps'] as $emp)
                     <li>
-                        <img width="100" height="100" src="{{ asset('public/uploads/users/'.$emp->image) }}" alt="User Image">
+                        <img style="width: 100px !important;height: 100px !important;" src="{{ asset('public/uploads/users/'.$emp->image) }}" alt="User Image">
                         <a class="users-list-name" href="{{ route(env('DASH_URL').'.employees.show',$emp->id) }}">
                             {{ $emp->name }}
                         </a>

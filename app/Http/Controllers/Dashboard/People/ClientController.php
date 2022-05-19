@@ -10,6 +10,7 @@ use App\Models\ClientType;
 use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Role;
+use App\Models\Subscribe;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,24 +28,25 @@ class ClientController extends Controller
         $this->middleware(['permission:clients-delete'])->only('destroy');
     }//end of constructor
 
-    private function validate_page($request,$user = null){
+    private function validate_page($request, $user = null)
+    {
         $rules = [
             'name' => 'required',
             'client_type' => 'required',
         ];
 
-        if($user){
-            $rules += ['email' => [ 'required','email',
+        if ($user) {
+            $rules += ['email' => ['required', 'email',
                 Rule::unique('users')->ignore($user->id, 'id')
             ],
-                'phone' => [ 'required',
+                'phone' => ['required',
                     Rule::unique('users')->ignore($user->id, 'id')
                 ]
             ];
-        }else{
-            $rules += ['email' => [ 'required','email','unique:users' ],
+        } else {
+            $rules += ['email' => ['required', 'email', 'unique:users'],
                 'password' => 'required|min:6|confirmed',
-                'phone' => [ 'required','unique:users' ]
+                'phone' => ['required', 'unique:users']
             ];
         }
 
@@ -53,10 +55,13 @@ class ClientController extends Controller
         return $validator;
 
     }
-    public function index(ClientDataTable $dataTable,Request $request){
+
+    public function index(ClientDataTable $dataTable, Request $request)
+    {
         $data['title'] = __('site.clients');
         $data['types'] = ClientType::all();
-        return $dataTable->render('dashboard.people.clients.index', compact('data','request'));
+        $data['subscribes'] = Subscribe::all();
+        return $dataTable->render('dashboard.people.clients.index', compact('data', 'request'));
     }
 
     public function store(Request $request)
@@ -83,10 +88,14 @@ class ClientController extends Controller
 
             }//end of if
             $user = User::create($data);
-            if($user){
+            if ($user) {
                 Client::create([
                     'user_id' => $user->id,
                     'type_id' => $request->client_type,
+                    'company_name' => $request->company_name,
+                    'subscribe_id' => $request->subscribe_id,
+                    'subscribe_date' => now(),
+                    'subscribe_status' => 1,
                 ]);
             }
             $role = Role::find(2);
@@ -100,22 +109,22 @@ class ClientController extends Controller
     public function edit($id)
     {
         $form_data = User::findOrFail($id);
-        if($form_data->type != 3){
+        if ($form_data->type != 3) {
             abort(404);
         }
         $data['types'] = ClientType::all();
-        $data['client'] = Client::where('user_id',$id)->first();
-        $returnHTML = view('dashboard.people.clients.partials._edit',compact('form_data','data'))->render();
+        $data['client'] = Client::where('user_id', $id)->first();
+        $returnHTML = view('dashboard.people.clients.partials._edit', compact('form_data', 'data'))->render();
         return $returnHTML;
     }
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $user = User::findOrFail($request->id);
-        if($user->type != 3){
+        if ($user->type != 3) {
             abort(404);
         }
-        $validator = $this->validate_page($request,$user);
+        $validator = $this->validate_page($request, $user);
         if ($validator->fails()) {
             return response()->json(array(
                 'success' => false,
@@ -127,7 +136,7 @@ class ClientController extends Controller
             $data['email'] = $request->email;
             $data['phone'] = $request->phone;
             if ($request->image) {
-                $path= 'public/uploads/users/'.$user->image;
+                $path = 'public/uploads/users/' . $user->image;
                 if ($user->image and file_exists($path)) {
                     unlink($path);
                 }
@@ -138,11 +147,12 @@ class ClientController extends Controller
 
             }//end of if
             $user->update($data);
-            if($user){
-                $client = Client::where('user_id',$user->id)->first();
-                if($client){
+            if ($user) {
+                $client = Client::where('user_id', $user->id)->first();
+                if ($client) {
                     $client->update([
-                        'type_id' => $request->client_type
+                        'type_id' => $request->client_type,
+                        'company_name' => $request->company_name
                     ]);
                 }
             }
@@ -157,24 +167,26 @@ class ClientController extends Controller
     public function remove($id)
     {
         $user = User::find($id);
+        Client::where('user_id', $id)->delete();
         $user->delete();
         return response()->json(array('success' => true), 200);
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $form_data = User::findOrFail($id);
-        if($form_data->type != 3){
+        if ($form_data->type != 3) {
             abort(404);
         }
         $data['page'] = 'edit';
         $data['types'] = ClientType::all();
-        $data['title'] = $form_data->name.' '.__('site.profile');
+        $data['title'] = $form_data->name . ' ' . __('site.profile');
         $data['user'] = $form_data;
-        $data['client'] = Client::where('user_id',$id)->first();
-        $data['orders'] = Order::where('client_id',$id)->count();
-        $data['tasks'] = Task::where('client_id',$id)->count();
-        $data['invoices'] = Invoice::where('client_id',$id)->count();
-        return view('dashboard.people.clients.show',compact('data','form_data'));
+        $data['client'] = Client::where('user_id', $id)->first();
+        $data['orders'] = Order::where('client_id', $id)->count();
+        $data['tasks'] = Task::where('client_id', $id)->count();
+        $data['invoices'] = Invoice::where('client_id', $id)->count();
+        return view('dashboard.people.clients.show', compact('data', 'form_data'));
     }
 
 }

@@ -1,43 +1,46 @@
-<form method="post" enctype="multipart/form-data" action="{{ route(env('DASH_URL').'.profile.password') }}" class="edit_form">
+<form class="form" method="post" enctype="multipart/form-data" action="{{ route(env('DASH_URL').'.profile.password') }}">
     {{ csrf_field() }}
     {{ method_field('post') }}
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group" id="old_password_div">
-                <label for="old_password_input">@lang('site.old_password')</label>
-                <input id="old_password_input" type="password" name="old_password" placeholder="@lang('site.old_password')" class="form-control"
-                       value="">
-                <span id="old_password_error" class="help-block"></span>
+        <div class="col-md-6" id="old_password_edit_div">
+            <div class="form-group">
+                <label>@lang('site.old_password')</label>
+                <input type="password" name="old_password" placeholder="@lang('site.old_password')"
+                       class="form-control">
+                <span id="old_password_edit_error" class="help-block"></span>
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group" id="new_password_div">
-                <label for="new_password_input">@lang('site.new_password')</label>
-                <input id="new_password_input" type="password" name="new_password" placeholder="@lang('site.new_password')" class="form-control"
-                       value="">
-                <span id="new_password_error" class="help-block"></span>
+            <div class="form-group" id="password_edit_div">
+                <label>@lang('site.password') الجديدة </label>
+                <input type="password" name="password" placeholder="@lang('site.password') الجديدة"
+                       class="form-control">
+                <span id="password_edit_error" class="help-block"></span>
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group" id="new_password_confirmation_div">
-                <label for="new_password_confirmation_input">@lang('site.new_password_confirmation')</label>
-                <input id="new_password_confirmation_input" type="password" name="new_password_confirmation" placeholder="@lang('site.new_password_confirmation')" class="form-control"
-                       value="">
-                <span id="new_password_confirmation_error" class="help-block"></span>
+            <div class="form-group" id="password_confirmation_edit_div">
+                <label>@lang('site.password_confirmation')</label>
+                <input type="password" name="password_confirmation"
+                       placeholder="@lang('site.password_confirmation')"
+                       class="form-control">
+                <span id="password_confirmation_edit_error" class="help-block"></span>
             </div>
         </div>
     </div>
 
-        <div class="row">
+    <div class="row">
+        <div class="col-md-6">
             <div class="form-group">
                 <button type="submit" onclick="this.disabled = true; $(this).closest('form').submit()"
-                        class="btn btn-primary"><?php echo $submitButton ?? __('site.edit');?></button>
+                        class="btn btn-primary">@lang('site.edit')</button>
             </div>
         </div>
+    </div>
 </form>

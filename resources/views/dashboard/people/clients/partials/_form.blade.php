@@ -9,11 +9,31 @@
     </div>
 
     <div class="col-md-6">
+        <div class="form-group" id="company_name">
+            <label for="company_name_input">@lang('site.company_name')</label>
+            <input id="company_name_input" type="text" name="company_name" placeholder="@lang('site.company_name')" class="form-control"
+                   value="">
+            <span id="company_name_error" class="help-block"></span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
         <div class="form-group" id="email">
             <label for="email_input">@lang('site.email')</label>
             <input id="email_input" type="email" name="email" placeholder="@lang('site.email')" class="form-control"
                    value="">
             <span id="email_error" class="help-block"></span>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group" id="phone">
+            <label for="phone_input">@lang('site.phone')</label>
+            <input id="phone_input" type="tel" name="phone" placeholder="@lang('site.phone')" class="form-control"
+                   value="">
+            <span id="phone_error" class="help-block"></span>
         </div>
     </div>
 </div>
@@ -54,11 +74,15 @@
     </div>
 
     <div class="col-md-6">
-        <div class="form-group" id="phone">
-            <label for="phone_input">@lang('site.phone')</label>
-            <input id="phone_input" type="tel" name="phone" placeholder="@lang('site.phone')" class="form-control"
-                   value="">
-            <span id="phone_error" class="help-block"></span>
+        <div class="form-group" id="subscribe_id">
+            <label for="subscribe_id_input">@lang('site.subscribe_id')</label>
+            <select name="subscribe_id" id="subscribe_id_input" class="form-control">
+                <option value="">@lang('site.select') @lang('site.subscribe_id')</option>
+                @foreach($data['subscribes'] as $subscribe)
+                    <option value="{{ $subscribe->id }}">{{ $subscribe->getTranslateName(app()->getLocale()) .'( '.$subscribe->period.' ) '.__('site.months')  }}</option>
+                @endforeach
+            </select>
+            <span id="subscribe_id_error" class="help-block"></span>
         </div>
     </div>
 

@@ -169,7 +169,10 @@ return [
         'invoice_id' => 'الفاتوره',
         'paid_amount' => 'المبلغ المدفوع',
         'remind_amount' => 'الكميه المتبقية',
-        'total_amount' => 'المبلغ الاجمالي'
+        'total_amount' => 'المبلغ الاجمالي',
+        'company_name' => 'اسم المنشأه',
+        'subscribe_id' => 'الإشتراك',
+
 
     ],
 ];

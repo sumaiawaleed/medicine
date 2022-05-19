@@ -42,5 +42,14 @@
                 </a>
             </li>
         @endif
+
+        @if (auth()->user()->hasPermission('subscribes-read'))
+            <li class="nav-item">
+                <a href="{{ route(env('DASH_URL').'.subscribes.index') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>@lang('site.subscribes')</p>
+                </a>
+            </li>
+        @endif
     </ul>
 </li>

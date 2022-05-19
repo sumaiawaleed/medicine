@@ -186,5 +186,25 @@ return [
 
     'client_fin_accounts' => 'الحسابات الماليه',
     'one_client_fin_accounts' => 'الحساب المالي',
-    'total_amount' => 'المبلغ الإجمالي'
+    'total_amount' => 'المبلغ الإجمالي',
+    'search' => 'بحث',
+
+    'subscribes' => 'الإشتراكات',
+    'subscribe' => 'إشتراك',
+    'one_subscribes' => 'إشتراك',
+    'period' => 'الفترة',
+    'ar_name' => 'الاسم بالعربية',
+    'en_name' => 'الاسم بالإنجليزية',
+    'subscribe_id' => 'الإشتراك',
+    'months' => 'شهر',
+    'subscribe_date' => 'تاريخ الإشتراك',
+    'subscribe_status' => 'حالة الإشتراك',
+    'canceled_successfully' => 'تم الغاء الإشتراك',
+    'cancel_subscribe' => 'الغاء الإشتراك',
+    'add_subscribe' => 'تجديد الإشتراك',
+    'confirm_cancel' => 'هل انت متأكد من أنك تريد الغاء اشتراك العميل؟',
+    'company_name' => 'اسم المنشأه',
+    'old_password' => 'كلمة المرور السابقة',
+    'my_profile' => 'حسابي',
+    'change_password' => "تغيير كلمة المرور",
 ];

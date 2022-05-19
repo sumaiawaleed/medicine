@@ -27,6 +27,7 @@ return [
             'locations' => 'c,r,u,d',
             'user_locations' => 'c,r,u,d',
             'tasks' => 'c,r,u,d',
+            'subscribes' => 'c,r,u,d',
         ],
     ],
 
