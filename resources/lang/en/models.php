@@ -13,12 +13,9 @@ return [
     'categories' ,
     'products' ,
     'product_units' ,
-    'product_conversion_units' ,
-    'order_items' ,
     'receipts' ,
     'return_invoices' ,
     'locations' ,
-    'user_locations' ,
     'tasks' ,
     'subscribes' ,
 ];

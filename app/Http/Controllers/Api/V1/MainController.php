@@ -112,14 +112,17 @@ class MainController extends Controller
         $apis = new ApiHelper();
         $lang = $request->header('lang');
         $data['products'] = array();
-        $data['products'] = Product::with('units')->when($request->category_id, function ($q) use ($request) {
+        $data['products'] = Product::when($request->category_id, function ($q) use ($request) {
             return $q->where('category_id', '=', $request->category_id);
         })->orderByDesc('id')->get();
 
         foreach ($data['products'] as $index => $product) {
             $product->name = $product->getTranslateName($lang);
+            $product->units = ProductUnit::where('product_id',$product->id)->get();
+            foreach ($product->units as $unit){
+                $unit->unit_name = $unit->getTranslateName($lang);
+            }
             $product->category_name = $product->get_category_name($lang);
-            $product->unitis = $product->get_category_name($lang);
         }
         $apis->createApiResponse(false, 200, "  ", $data);
         return;

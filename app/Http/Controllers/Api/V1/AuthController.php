@@ -52,6 +52,7 @@ class AuthController extends Controller
                 'phone' => $user->phone,
                 'image_path' => $user->image_path,
                 'type' => $user->type,
+                'permissions'=> $user->allPermissions()
             ];
 
             $apis = new ApiHelper();

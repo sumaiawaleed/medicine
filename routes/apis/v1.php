@@ -69,6 +69,34 @@ Route::group(['prefix' => 'emp',['middleware' => 'auth:api']], function () {
 });
 
 
+Route::group(['prefix' => 'm',['middleware' => 'auth:api']], function () {
+    Route::get('profile', 'M\ProfileController@profile')->name('profile');
+    Route::post('profile/edit', 'M\ProfileController@edit')->name('profile.edit');
+    Route::get('permissions', 'M\ProfileController@permissions')->name('permissions');
+
+    Route::resource('clients', 'M\ClientController')->only(['index','store','show']);
+    Route::post('clients/edit/{id}','M\ClientController@update')->name('clients.edit');
+    Route::get('client_types','M\ClientController@types')->name('client_types');
+    Route::get('all_clients','M\ClientController@all_clients')->name('all_clients');
+    Route::get('tasks','M\TaskController@index')->name('tasks');
+
+    Route::resource('invoices', 'M\InvoiceController')->only(['index','store']);
+    Route::post('invoices/edit/{id}','M\InvoiceController@update')->name('invoices.edit');
+
+    Route::resource('return_invoices', 'M\ReturnInvoiceController')->only(['index','store','destroy']);
+    Route::post('return_invoices/edit/{id}','M\ReturnInvoiceController@update')->name('return_invoices.edit');
+
+    Route::resource('receipts', 'M\ReceiptController')->only(['index','store','destroy']);
+    Route::post('receipts/edit/{id}','M\ReceiptController@update')->name('receipts.edit');
+
+
+    Route::resource('orders', 'M\OrderController')->only(['index','show','store']);
+    Route::post('order/edit/{id}','M\OrderController@update')->name('order.edit');
+    Route::post('order/items/create','M\OrderController@add_item')->name('order.items.create');
+    Route::post('order/items/edit','M\OrderController@edit_item')->name('order.items.edit');
+    Route::post('order/items/delete','M\OrderController@delete_item')->name('order.items.delete');
+});
+
 Route::get('temp_order', function () {
     $json[0]['product_id'] = 1;
     $json[0]['quantity'] = 10;

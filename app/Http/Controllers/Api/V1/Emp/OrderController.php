@@ -24,6 +24,7 @@ class OrderController extends Controller
                 ->paginate(20);
             foreach ($data['orders'] as $index => $order) {
                 $order->status_name = __('api.' . $lang . '.orders.' . $order->status);
+                $order->client_name = $order->getClient() ? $order->getClient()->name  :'';
             }
             $apis->createApiResponse(false, 200, "  ", $data);
             return;
